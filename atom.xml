@@ -13,6 +13,10 @@
     <name>LLLLAAAA</name>
     
   </author>
+  <follow_challenge>
+      <feedId>110383150425013248</feedId>
+      <userId>110249808229338112</userId>
+  </follow_challenge>
   
   <generator uri="https://hexo.io/">Hexo</generator>
   
