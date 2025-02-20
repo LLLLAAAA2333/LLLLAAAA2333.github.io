@@ -6,7 +6,7 @@
   <link href="https://llllaaaa2333.github.io/atom.xml" rel="self"/>
   
   <link href="https://llllaaaa2333.github.io/"/>
-  <updated>2025-02-20T03:36:57.989Z</updated>
+  <updated>2025-02-20T03:39:20.093Z</updated>
   <id>https://llllaaaa2333.github.io/</id>
   
   <author>
@@ -25,7 +25,7 @@
     <link href="https://llllaaaa2333.github.io/2025/02/20/0220/"/>
     <id>https://llllaaaa2333.github.io/2025/02/20/0220/</id>
     <published>2025-02-20T03:31:49.000Z</published>
-    <updated>2025-02-20T03:36:57.989Z</updated>
+    <updated>2025-02-20T03:39:20.093Z</updated>
     
     <content type="html"><![CDATA[<p><em>Avemujica</em> 观感欠佳，与之相比 <em>Medalist</em> 的口碑则逐渐升高，虽然还未完结，虽然制作依然贫穷，但是ENGI已经在EP4与EP5证明了他的努力，面对这个之前都是不及格的差生，这次居然考了70-80，难免让人对这种剧情心生喜爱；</p><p>然而相比已经很不错的动画，<em><strong>Medalist</strong></em> 的漫画听说更加出彩。于是我开始寻求如何获得一个很好的看漫画体验。</p><p>我并不是一个看很多漫画的人，之前基本是使用官方的漫画软件进行阅读，阅读资源难免受制于软件本身，并且还有一些付费机制；也尝试过使用iBook与微信读书这样的电子书软件阅读漫画，毕竟是电子书软件，并没有针对漫画做很好的适配，阅读体验不佳。</p><p>在搜索平板漫画阅读app时，我发现了<strong>可达漫画</strong>这个软件，使用起来还是很不错的。我将金牌得主漫画放在NAS上，使用webdav访问的体验很丝滑。<br>这个软件的卖点如下：</p><ol><li><em><strong>NAS</strong></em> support, protocols like FTP, WebDAV and Samba is well supported.</li><li><em><strong>Stream reading</strong></em> for CBZ, EPUB and MOBI, you can read these files on server directly without download the whole file.</li><li><em><strong>Arbitrary file structure</strong></em>, you can organize your files anyway you want, even put a CBZ file inside another CBZ file.</li><li><em><strong>Privacy Library</strong></em> with Passcode, TouchID or FaceID supports.<br>我发现还可以支持Apple Pencil来进行翻页，这下可以双手都离开屏幕了（雾）。</li></ol><p><img src="/2025/02/20/0220/4c0b3da7defe768a75222632d7da6df.jpg" alt="可达阅读器访问NAS服务器"></p><p>我以为也能拿来看电子书，发现EPUB文件只能显示其中的图片，看来软件比较专一，只为漫画服务。</p><p>作者的经历也很励志，利用业余时间从0开发真的很酷。偶尔发现作者的<a href="https://blog.kedareader.com/">blog</a>，还挺有意思，然而内容不多，在更新的也只有APP的更新记录了。关于价格，68元确实有点贵（如果漫画阅读需求比较小的话），之后我会好好利用这个软件的，毕竟优秀的漫画作品很多!</p><p>参考：</p><ul><li><a href="https://www.reddit.com/r/SideProject/comments/o4z2nj/an_iphone_and_ipad_dedicated_drmfree_mangacomic/">An iPhone and iPad dedicated DRM-Free Manga&#x2F;Comic Reader - 《Kedamanga》 : r&#x2F;SideProject</a> </li><li><a href="https://github.com/xiaogdgenuine/kedamanga-web/issues/5">可达漫画 - 献给喜欢看漫画的你 · Issue #5 · xiaogdgenuine&#x2F;kedamanga-web</a> </li><li><a href="https://www.bilibili.com/video/BV1EZ421N7ZY/?spm_id_from=333.1391.0.0&vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">极致丝滑体验！可能是苹果最强漫画APP—可达阅读器_哔哩哔哩_bilibili</a></li></ul>]]></content>
     
