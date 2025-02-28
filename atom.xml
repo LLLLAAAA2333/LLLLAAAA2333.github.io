@@ -6,7 +6,7 @@
   <link href="https://llllaaaa2333.github.io/atom.xml" rel="self"/>
   
   <link href="https://llllaaaa2333.github.io/"/>
-  <updated>2025-02-26T13:57:10.043Z</updated>
+  <updated>2025-02-28T16:05:51.277Z</updated>
   <id>https://llllaaaa2333.github.io/</id>
   
   <author>
@@ -21,11 +21,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>添加背景</title>
+    <link href="https://llllaaaa2333.github.io/2025/02/28/20250228/"/>
+    <id>https://llllaaaa2333.github.io/2025/02/28/20250228/</id>
+    <published>2025-02-28T15:59:03.000Z</published>
+    <updated>2025-02-28T16:05:51.277Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="为VScode添加背景"><a href="#为VScode添加背景" class="headerlink" title="为VScode添加背景"></a>为VScode添加背景</h2><p>作为一个小二次元，使用vscode时间久了看着纯色的背景总觉得不舒服，这天刚好在b站刷到视频<a href="https://www.bilibili.com/video/BV1EWtjezEYn/?spm_id_from=333.1391.0.0&vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">全网首发VSCode主打渐变色主题！超级好看！哔哩哔哩_bilibili</a> ，没有被该视频的渐变色吸引，反而是评论区的一个使用<code>background</code>插件的b友发了个他的截图，成功吸引到了我的目光，于是就在自己的电脑上操作了一下。</p><span id="more"></span><h4 id="操作"><a href="#操作" class="headerlink" title="操作"></a>操作</h4><p>配置过程非常简单，直接看<a href="https://github.com/shalldie/vscode-background/blob/master/images/section.png">vscode-background</a> 这个仓库的说明文档即可。<br>当然首先搜索background插件并安装，安装完成之后点开vscode的设置，搜索<code>background</code>，点击<code>Edit in settings.json</code>，之后在<code>&quot;background.customImages&quot;</code>里添加图片地址即可，如下所示:</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;background.customImages&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span></span><br><span class="line">   <span class="string">&quot;file:///C:/Users/你的用户名/Pictures/图片1.jpg&quot;</span><span class="punctuation">,</span></span><br><span class="line">   <span class="string">&quot;file:///D:/Work/图片2.png&quot;</span></span><br><span class="line"> <span class="punctuation">]</span></span><br></pre></td></tr></table></figure><p>当然也支持网络图片<br>fullscreen, Sidebar, Panel Section都可以设置，如下:</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">&quot;background.fullscreen&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="comment">// 本地图片可以拖到浏览器中，快速从地址栏得到file协议的地址</span></span><br><span class="line">    <span class="attr">&quot;images&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;file:///E:/Tools/browsers/chrome/thumb-1920-1374531.jpg&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;opacity&quot;</span><span class="punctuation">:</span> <span class="number">0.1</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;size&quot;</span><span class="punctuation">:</span> <span class="string">&quot;cover&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;position&quot;</span><span class="punctuation">:</span> <span class="string">&quot;center&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;interval&quot;</span><span class="punctuation">:</span> <span class="number">0</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;random&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">false</span></span></span><br><span class="line"><span class="punctuation">&#125;</span><span class="punctuation">,</span></span><br></pre></td></tr></table></figure><p>但我找不到太合适的图片，选了张芙莉莲的 :D<br><img src="/2025/02/28/20250228/20250228-1.png" alt="vscode添加全屏幕背景"></p><h4 id="插件的CSS实现原理"><a href="#插件的CSS实现原理" class="headerlink" title="插件的CSS实现原理"></a>插件的CSS实现原理</h4><p>VS Code基于Electron开发，界面渲染依赖CSS。background插件通过动态注入CSS代码实现背景修改，比如：</p><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">  <span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&#x27;图片路径&#x27;</span>);</span><br><span class="line">  <span class="attribute">background-size</span>: cover;</span><br><span class="line">  <span class="attribute">opacity</span>: <span class="number">0.15</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><p>当然还有其他的插件，比如<code>background-cover</code> <code>Custom CSS and JS Loader</code></p><h2 id="为Obsidian添加背景"><a href="#为Obsidian添加背景" class="headerlink" title="为Obsidian添加背景"></a>为Obsidian添加背景</h2><p>修改完vscode的背景后，我把目光瞄向了Obsidian，由于我使用的是<code>Blue Topaz</code>主题，所以背景修改起来非常简单. 我使用的是<code>style Settings</code>插件<br>在其中<code>Blue Topaz Theme</code>的<code>Background images</code>中，我只选择了<code>Workplace</code>，之后插入所需要的图片的url即可。我使用的是原画集里的一张<a href="https://images2.alphacoders.com/133/thumbbig-1337727.webp">芙莉莲</a>。<br><img src="/2025/02/28/20250228/20250228-2.png"><br>效果如下：<br><img src="/2025/02/28/20250228/20250228-3.png" alt="obsidian背景-全屏幕"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://github.com/shalldie/vscode-background">shalldie&#x2F;vscode-background: Bring background images to your vscode. vscode background 背景扩展插件。</a> </li><li><a href="https://blog.csdn.net/yukinoai/article/details/84564949">VSCode——修改VSCode背景图片</a> </li><li><a href="https://github.com/PKM-er/Blue-Topaz_Obsidian-css">ProudBenzene&#x2F;Blue-Topaz-Legacy</a> </li><li><a href="https://github.com/mgmeyers/obsidian-style-settings">mgmeyers&#x2F;obsidian-style-settings</a></li></ul>]]></content>
+    
+    
+    <summary type="html">&lt;h2 id=&quot;为VScode添加背景&quot;&gt;&lt;a href=&quot;#为VScode添加背景&quot; class=&quot;headerlink&quot; title=&quot;为VScode添加背景&quot;&gt;&lt;/a&gt;为VScode添加背景&lt;/h2&gt;&lt;p&gt;作为一个小二次元，使用vscode时间久了看着纯色的背景总觉得不舒服，这天刚好在b站刷到视频&lt;a href=&quot;https://www.bilibili.com/video/BV1EWtjezEYn/?spm_id_from=333.1391.0.0&amp;vd_source=4f05b05eb19ffd33468ed22d8ea0de7a&quot;&gt;全网首发VSCode主打渐变色主题！超级好看！哔哩哔哩_bilibili&lt;/a&gt; ，没有被该视频的渐变色吸引，反而是评论区的一个使用&lt;code&gt;background&lt;/code&gt;插件的b友发了个他的截图，成功吸引到了我的目光，于是就在自己的电脑上操作了一下。&lt;/p&gt;</summary>
+    
+    
+    
+    <category term="工具" scheme="https://llllaaaa2333.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="fun" scheme="https://llllaaaa2333.github.io/tags/fun/"/>
+    
+  </entry>
+  
+  <entry>
     <title>眼镜的防伪标识</title>
     <link href="https://llllaaaa2333.github.io/2025/02/26/20250226/"/>
     <id>https://llllaaaa2333.github.io/2025/02/26/20250226/</id>
     <published>2025-02-26T13:51:55.000Z</published>
-    <updated>2025-02-26T13:57:10.043Z</updated>
+    <updated>2025-02-28T16:05:53.044Z</updated>
     
     <content type="html"><![CDATA[<h2 id="Intro"><a href="#Intro" class="headerlink" title="Intro"></a>Intro</h2><p>最近配了一个新眼镜，发现哈气会有一个标志：<code>MD60</code>，不禁让我想到旧眼镜在光下会有<code>Crizal</code>的标识，于是了解了下发现这是镜片的防伪标识。</p><span id="more"></span><p>于是我了解了一些镜片的防伪标识，如下所示。</p><h2 id="Zeiss"><a href="#Zeiss" class="headerlink" title="Zeiss"></a>Zeiss</h2><p><img src="/2025/02/26/20250226/Zeiss.png"><br>根据官网似乎采用镭射防伪。</p><blockquote><p>蔡司商标仅仅适用于您和您所看到的人，虽然不显眼，但在某些光线下仍然可见，最重要的是，它不会损害您的视力。用于镌刻镜片的激光机的工作波长仅限非常小的穿透深度。您甚至在镜片表面无法感受到它的存在。</p></blockquote><h2 id="Crizal"><a href="#Crizal" class="headerlink" title="Crizal"></a>Crizal</h2><p>我的旧眼镜品牌就是依视路，是在哈气下可见。<br><img src="/2025/02/26/20250226/Crizal.png"></p><h2 id="明月镜片"><a href="#明月镜片" class="headerlink" title="明月镜片"></a>明月镜片</h2><p>我配的新眼镜镜片，哈气可见。（雾气退的太快了，只能捕捉的边边角角）<br><img src="/2025/02/26/20250226/Mingyue.png"></p><h2 id="康耐特"><a href="#康耐特" class="headerlink" title="康耐特"></a>康耐特</h2><p><img src="/2025/02/26/20250226/kangnaite.png"></p><p>貌似只有蔡司采用镭射防伪</p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://zhuanlan.zhihu.com/p/688667090">镜片防伪标志全集 - 知乎</a> </li><li><a href="https://www.zeiss.com.cn/vision-care/eye-health-and-care/understanding-vision/zeiss-on-your-spectacle-lens.html">镜片上的蔡司标志</a> </li><li><a href="https://www.zhihu.com/question/423923802/answer/1504995266">(4 封私信 &#x2F; 14 条消息) 新配的眼镜两个镜片的标志长的不一样是怎么回事？? - 知乎</a></li></ul>]]></content>
     
@@ -34,8 +55,10 @@
     
     
     
+    <category term="随笔" scheme="https://llllaaaa2333.github.io/categories/%E9%9A%8F%E7%AC%94/"/>
     
-    <category term="随笔" scheme="https://llllaaaa2333.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
+    
+    <category term="fun" scheme="https://llllaaaa2333.github.io/tags/fun/"/>
     
   </entry>
   
@@ -83,9 +106,9 @@
     <category term="工具" scheme="https://llllaaaa2333.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
-    
     <category term="fun" scheme="https://llllaaaa2333.github.io/tags/fun/"/>
+    
+    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
     
   </entry>
   
@@ -94,7 +117,7 @@
     <link href="https://llllaaaa2333.github.io/2025/02/20/0220/"/>
     <id>https://llllaaaa2333.github.io/2025/02/20/0220/</id>
     <published>2025-02-20T03:31:49.000Z</published>
-    <updated>2025-02-20T15:28:32.566Z</updated>
+    <updated>2025-02-28T16:05:26.149Z</updated>
     
     <content type="html"><![CDATA[<p><em>Avemujica</em> 观感欠佳，与之相比 <em>Medalist</em> 的口碑则逐渐升高，虽然还未完结，虽然制作依然贫穷，但是ENGI已经在EP4与EP5证明了他的努力，面对这个之前都是不及格的差生，这次居然考了70-80，难免让人对这种剧情心生喜爱；</p><p>然而相比已经很不错的动画，<em><strong>Medalist</strong></em> 的漫画听说更加出彩。于是我开始寻求如何获得一个很好的看漫画体验。</p><p>我并不是一个看很多漫画的人，之前基本是使用官方的漫画软件进行阅读，阅读资源难免受制于软件本身，并且还有一些付费机制；也尝试过使用iBook与微信读书这样的电子书软件阅读漫画，毕竟是电子书软件，并没有针对漫画做很好的适配，阅读体验不佳。</p><span id="more"></span><p>在搜索平板漫画阅读app时，我发现了<strong>可达漫画</strong>这个软件，使用起来还是很不错的。我将金牌得主漫画放在NAS上，使用webdav访问的体验很丝滑。<br>这个软件的卖点如下：</p><ol><li><em><strong>NAS</strong></em> support, protocols like FTP, WebDAV and Samba is well supported.</li><li><em><strong>Stream reading</strong></em> for CBZ, EPUB and MOBI, you can read these files on server directly without download the whole file.</li><li><em><strong>Arbitrary file structure</strong></em>, you can organize your files anyway you want, even put a CBZ file inside another CBZ file.</li><li><em><strong>Privacy Library</strong></em> with Passcode, TouchID or FaceID supports.<br>我发现还可以支持Apple Pencil来进行翻页，这下可以双手都离开屏幕了（雾）。</li></ol><p><img src="/2025/02/20/0220/4c0b3da7defe768a75222632d7da6df.jpg" alt="可达阅读器访问NAS服务器"></p><p>我以为也能拿来看电子书，发现EPUB文件只能显示其中的图片，看来软件比较专一，只为漫画服务。</p><p>作者的经历也很励志，利用业余时间从0开发真的很酷。偶尔发现作者的<a href="https://blog.kedareader.com/">blog</a>，还挺有意思，然而内容不多，在更新的也只有APP的更新记录了。关于价格，68元确实有点贵（如果漫画阅读需求比较小的话），之后我会好好利用这个软件的，毕竟优秀的漫画作品很多!</p><p>参考：</p><ul><li><a href="https://www.reddit.com/r/SideProject/comments/o4z2nj/an_iphone_and_ipad_dedicated_drmfree_mangacomic/">An iPhone and iPad dedicated DRM-Free Manga&#x2F;Comic Reader - 《Kedamanga》 : r&#x2F;SideProject</a> </li><li><a href="https://github.com/xiaogdgenuine/kedamanga-web/issues/5">可达漫画 - 献给喜欢看漫画的你 · Issue #5 · xiaogdgenuine&#x2F;kedamanga-web</a> </li><li><a href="https://www.bilibili.com/video/BV1EZ421N7ZY/?spm_id_from=333.1391.0.0&vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">极致丝滑体验！可能是苹果最强漫画APP—可达阅读器_哔哩哔哩_bilibili</a></li></ul>]]></content>
     
@@ -109,8 +132,6 @@
     
     
     <category term="fun" scheme="https://llllaaaa2333.github.io/tags/fun/"/>
-    
-    <category term="随笔" scheme="https://llllaaaa2333.github.io/tags/%E9%9A%8F%E7%AC%94/"/>
     
   </entry>
   
@@ -155,9 +176,9 @@
     <category term="工具" scheme="https://llllaaaa2333.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
     
     
-    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
-    
     <category term="fun" scheme="https://llllaaaa2333.github.io/tags/fun/"/>
+    
+    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
     
   </entry>
   
