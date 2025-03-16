@@ -6,7 +6,7 @@
   <link href="https://llllaaaa2333.github.io/atom.xml" rel="self"/>
   
   <link href="https://llllaaaa2333.github.io/"/>
-  <updated>2025-02-28T16:05:51.277Z</updated>
+  <updated>2025-03-16T02:59:52.546Z</updated>
   <id>https://llllaaaa2333.github.io/</id>
   
   <author>
@@ -19,6 +19,31 @@
   </follow_challenge>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>VScode无法用activate</title>
+    <link href="https://llllaaaa2333.github.io/2025/03/16/20250316/"/>
+    <id>https://llllaaaa2333.github.io/2025/03/16/20250316/</id>
+    <published>2025-03-16T02:50:05.000Z</published>
+    <updated>2025-03-16T02:59:52.546Z</updated>
+    
+    <content type="html"><![CDATA[<p>最近使用vscode的命令行终端时，出现了无法使用<code>conda activate</code>的情况，并且杀掉终端后，再开启一个新终端直接使用的是某个环境，无法用<code>conda deactivate</code>退出也无法激活别的环境。</p><p>于是我使用命令<code>conda env list</code>能正常输出我的环境列表，但并没有<code>conda -h</code>并没有<code>activate</code>命令，且无法激活某个环境。</p><p>首先我尝试将<code>condabin</code>文件夹添加到环境变量的<code>Path</code>中，重启终端后确实解决了，但下一次使用时依然出现了无法<code>activate</code>的问题，并且这种方法失效了。</p><p>于是我尝试直接方法：激活<code>base</code></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">E:\Anaconda\Scripts\activate.bat base</span><br></pre></td></tr></table></figure><p>直接将<code>base</code>环境激活，但<strong>再开启一个新终端直接使用的是某个环境</strong>这种问题却没有解决。</p><p>最后终于排查出了原因：我在很久之前将<code>settings.json</code>中直接将cmd指向了特定环境的解释器，改回即可。</p><figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line"><span class="attr">&quot;python.defaultInterpreterPath&quot;</span><span class="punctuation">:</span> <span class="string">&quot;E:\\Anaconda\\python.exe&quot;</span>  <span class="comment">// 指向 base 环境的解释器</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;p&gt;最近使用vscode的命令行终端时，出现了无法使用&lt;code&gt;conda activate&lt;/code&gt;的情况，并且杀掉终端后，再开启一个新终端直接使用的是某个环境，无法用&lt;code&gt;conda deactivate&lt;/code&gt;退出也无法激活别的环境。&lt;/p&gt;
+&lt;p&gt;于是</summary>
+      
+    
+    
+    
+    <category term="工具" scheme="https://llllaaaa2333.github.io/categories/%E5%B7%A5%E5%85%B7/"/>
+    
+    
+    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
+    
+  </entry>
   
   <entry>
     <title>添加背景</title>
