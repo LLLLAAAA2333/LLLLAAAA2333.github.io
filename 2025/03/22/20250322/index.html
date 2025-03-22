@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"><meta><title>Introduction to linear algebra - JH&#039;s Blog</title><link rel="manifest" href="/manifest.json"><meta name="application-name" content="JH&#039;s Blog"><meta name="msapplication-TileImage" content="/img/favicon.svg"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="JH&#039;s Blog"><meta name="apple-mobile-web-app-status-bar-style" content="default"><meta name="description" content="这是以前做的笔记了，看的是bilibili的视频麻省理工学院 线性代数  Lesson1 几何解释与矩阵运算 the whole course key idea is matrix operations, not as words  row picture and column picturerow picture : 不同平面，曲线或者高维的面作图 column picture: linear"><meta property="og:type" content="blog"><meta property="og:title" content="Introduction to linear algebra"><meta property="og:url" content="https://llllaaaa2333.github.io/2025/03/22/20250322/"><meta property="og:site_name" content="JH&#039;s Blog"><meta property="og:description" content="这是以前做的笔记了，看的是bilibili的视频麻省理工学院 线性代数  Lesson1 几何解释与矩阵运算 the whole course key idea is matrix operations, not as words  row picture and column picturerow picture : 不同平面，曲线或者高维的面作图 column picture: linear"><meta property="og:locale" content="en_US"><meta property="og:image" content="https://llllaaaa2333.github.io/img/og_image.png"><meta property="article:published_time" content="2025-03-22T14:46:27.000Z"><meta property="article:modified_time" content="2025-03-22T14:51:03.221Z"><meta property="article:author" content="LLLLAAAA"><meta property="article:tag" content="study"><meta property="twitter:card" content="summary"><meta property="twitter:image:src" content="https://llllaaaa2333.github.io/img/og_image.png"><script type="application/ld+json">{"@context":"https://schema.org","@type":"BlogPosting","mainEntityOfPage":{"@type":"WebPage","@id":"https://llllaaaa2333.github.io/2025/03/22/20250322/"},"headline":"Introduction to linear algebra","image":["https://llllaaaa2333.github.io/img/og_image.png"],"datePublished":"2025-03-22T14:46:27.000Z","dateModified":"2025-03-22T14:51:03.221Z","author":{"@type":"Person","name":"LLLLAAAA"},"publisher":{"@type":"Organization","name":"JH's Blog","logo":{"@type":"ImageObject","url":"https://llllaaaa2333.github.io/img/logo.svg"}},"description":"这是以前做的笔记了，看的是bilibili的视频麻省理工学院 线性代数  Lesson1 几何解释与矩阵运算 the whole course key idea is matrix operations, not as words  row picture and column picturerow picture : 不同平面，曲线或者高维的面作图 column picture: linear"}</script><link rel="canonical" href="https://llllaaaa2333.github.io/2025/03/22/20250322/"><link rel="alternate" href="/atom.xml" title="JH&#039;s Blog" type="application/atom+xml"><link rel="icon" href="/img/favicon.svg"><link rel="stylesheet" href="https://use.fontawesome.com/releases/v6.0.0/css/all.css"><link data-pjax rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@11.7.0/styles/atom-one-light.css"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;600&amp;family=Source+Code+Pro"><link data-pjax rel="stylesheet" href="/css/default.css"><style>body>.footer,body>.navbar,body>.section{opacity:0}</style><!--!--><!--!--><!--!--><!--!--><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/css/lightgallery.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/css/justifiedGallery.min.css"><!--!--><!--!--><!--!--><style>.pace{-webkit-pointer-events:none;pointer-events:none;-webkit-user-select:none;-moz-user-select:none;user-select:none}.pace-inactive{display:none}.pace .pace-progress{background:#3273dc;position:fixed;z-index:2000;top:0;right:100%;width:100%;height:2px}</style><script src="https://cdn.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><!--!--><!--!--><!-- hexo injector head_end start --><script>
+  (function () {
+      function switchTab() {
+          if (!location.hash) {
+            return;
+          }
+
+          const id = '#' + CSS.escape(location.hash.substring(1));
+          const $tabMenu = document.querySelector(`.tabs a[href="${id}"]`);
+          if (!$tabMenu) {
+            return;
+          }
+
+          const $tabMenuContainer = $tabMenu.parentElement.parentElement;
+          Array.from($tabMenuContainer.children).forEach($menu => $menu.classList.remove('is-active'));
+          Array.from($tabMenuContainer.querySelectorAll('a'))
+              .map($menu => document.getElementById($menu.getAttribute("href").substring(1)))
+              .forEach($content => $content.classList.add('is-hidden'));
+
+          if ($tabMenu) {
+              $tabMenu.parentElement.classList.add('is-active');
+          }
+          const $activeTab = document.querySelector(id);
+          if ($activeTab) {
+              $activeTab.classList.remove('is-hidden');
+          }
+      }
+      switchTab();
+      window.addEventListener('hashchange', switchTab, false);
+  })();
+  </script><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body class="is-2-column"><nav class="navbar navbar-main"><div class="container navbar-container"><div class="navbar-brand justify-content-center"><a class="navbar-item navbar-logo" href="/"><img src="/img/logo.svg" alt="JH&#039;s Blog" height="28"></a></div><div class="navbar-menu"><div class="navbar-start"><a class="navbar-item" href="/">Home</a><a class="navbar-item" href="/archives">Archives</a><a class="navbar-item" href="/categories">Categories</a><a class="navbar-item" href="/tags">Tags</a><a class="navbar-item" href="/about">About</a></div><div class="navbar-end"><a class="navbar-item" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a><a class="navbar-item search" title="Search" href="javascript:;"><i class="fas fa-search"></i></a></div></div></div></nav><section class="section"><div class="container"><div class="columns"><div class="column order-2 column-main is-8-tablet is-8-desktop is-8-widescreen"><div class="card"><article class="card-content article" role="article"><div class="article-meta is-size-7 is-uppercase level is-mobile"><div class="level-left"><span class="level-item">Posted&nbsp;<time dateTime="2025-03-22T14:46:27.000Z" title="2025/3/22 22:46:27">2025-03-22</time></span><span class="level-item">Updated&nbsp;<time dateTime="2025-03-22T14:51:03.221Z" title="2025/3/22 22:51:03">2025-03-22</time></span><span class="level-item"><a class="link-muted" href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></span><span class="level-item">10 minutes read (About 1466 words)</span></div></div><h1 class="title is-3 is-size-4-mobile">Introduction to linear algebra</h1><div class="content"><p>这是以前做的笔记了，看的是bilibili的视频<a target="_blank" rel="noopener" href="https://www.bilibili.com/video/BV16Z4y1U7oU/?spm_id_from=333.337.search-card.all.click&vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">麻省理工学院 线性代数</a> </p>
+<h2 id="Lesson1-几何解释与矩阵运算"><a href="#Lesson1-几何解释与矩阵运算" class="headerlink" title="Lesson1 几何解释与矩阵运算"></a>Lesson1 几何解释与矩阵运算</h2><blockquote>
+<p>the whole course key idea is matrix operations, not as words</p>
+</blockquote>
+<h3 id="row-picture-and-column-picture"><a href="#row-picture-and-column-picture" class="headerlink" title="row picture and column picture"></a>row picture and column picture</h3><p>row picture : 不同平面，曲线或者高维的面作图</p>
+<p>column picture: linear combinations of columns of the matrix</p>
+<span id="more"></span>
+<h3 id="行列式的计算"><a href="#行列式的计算" class="headerlink" title="行列式的计算"></a>行列式的计算</h3><p>$$<br>\mathbf A\mathbf x&#x3D;\mathbf b<br>$$</p>
+<p>eg. 2 by 2 system</p>
+<p>solution 1:</p>
+<p>转化为linear combination<br>$$<br>\left[\matrix{2&amp;5\1&amp;3}\right]\left[\matrix{1\2}\right]&#x3D;1\left[\matrix{2\1}\right]+2\left[\matrix{5\3}\right]&#x3D;\left[\matrix{12\7}\right]<br>$$<br>solution2:<br>$$<br>\left[\matrix{2&amp;5\1&amp;3}\right]\left[\matrix{1\2}\right]&#x3D;\left[\matrix {2\times1+5\times2\1\times1+3\times2}\right]<br>$$<br>but solution1 is better:</p>
+<p><strong>Ax</strong> is a combination of columns of <strong>A</strong></p>
+<h3 id="Elimination-（消元法）Gauss-Jordan-Elimination"><a href="#Elimination-（消元法）Gauss-Jordan-Elimination" class="headerlink" title="Elimination （消元法）Gauss-Jordan Elimination"></a>Elimination （消元法）<em>Gauss-Jordan</em> Elimination</h3><blockquote>
+<p>elimination is the way every software package solves equations</p>
+</blockquote>
+<p>$$<br>\matrix{<br>1&amp;2&amp;1\<br>3&amp;8&amp;1\<br>0&amp;4&amp;1\<br>} \to\quad<br>\matrix{<br>1&amp;2&amp;1\<br>0&amp;2&amp;-2\<br>0&amp;4&amp;1\<br>} \to\quad<br>\matrix{<br>1&amp;2&amp;1\<br>0&amp;2&amp;-2\<br>0&amp;0&amp;5<br>}<br>$$</p>
+<ol>
+<li>找到主元1<code>x</code>，第一行x的系数是1，所以把第一行作为主元行，find the pivot row (eliminate x use subtraction) ，主元行保持不变，对其他行进行消元</li>
+<li>找到主元2<code>y</code><!---2--> 重复1. 最终得到一个上三角矩阵<strong>U</strong></li>
+</ol>
+<p>所以说，消元的目的是从原始矩阵<strong>A</strong>得到上三角矩阵<strong>U</strong>，这是计算科学中最普遍的运算。</p>
+<ul>
+<li>如果0占据了主元的位置，进行行交换</li>
+<li>如果找不到交换的，矩阵不可逆(not invertible)</li>
+</ul>
+<h3 id="back-substitution"><a href="#back-substitution" class="headerlink" title="back substitution"></a>back substitution</h3><p>代入<strong>b</strong>到<strong>A</strong><br>$$<br>\matrix{<br>1&amp;2&amp;1&amp;2\<br>3&amp;8&amp;1&amp;12\<br>0&amp;4&amp;1&amp;2\<br>} \quad\to\quad<br>\matrix{<br>1&amp;2&amp;1&amp;2\<br>0&amp;2&amp;-2&amp;6\<br>0&amp;4&amp;1&amp;2<br>}\quad\to\quad<br>\matrix{<br>1&amp;2&amp;1&amp;2\<br>0&amp;2&amp;-2&amp;6\<br>0&amp;0&amp;5&amp;-10<br>}<br>$$<br>这个被称为增广矩阵（the augmented matrix),最后一列称为<strong>c</strong></p>
+<p>写成方程的形式：<br>$$<br>x+2y+z&#x3D;2<br>2y-2z&#x3D;6<br>5z&#x3D;-10<br>$$<br>this is the equation <strong>U</strong> <strong>x</strong> &#x3D;<strong>c</strong></p>
+<h3 id="the-elimination-matrix"><a href="#the-elimination-matrix" class="headerlink" title="the elimination matrix"></a>the elimination matrix</h3><blockquote>
+<p>行变换</p>
+</blockquote>
+<ol>
+<li>subtract 3 times row1 from row 2 &#x3D;&#x3D;E<sub>21</sub>&#x3D;&#x3D;<br>$$<br>\left[\matrix{<br>1&amp;0&amp;0\<br>-3&amp;1&amp;0\<br>0&amp;0&amp;1\<br>}\right]<br>\left[\matrix{<br>1&amp;2&amp;1\<br>3&amp;8&amp;1\<br>0&amp;4&amp;1<br>}\right]&#x3D;<br>\left[\matrix{<br>1&amp;2&amp;1\<br>0&amp;2&amp;-2\<br>0&amp;4&amp;1\<br>}\right]<br>$$</li>
+<li>subtract 2 times row 2 from row 3 &#x3D;&#x3D;E<sub>32</sub>&#x3D;&#x3D;</li>
+</ol>
+<p>$$<br>\left[\matrix{<br>1&amp;0&amp;0\<br>0&amp;1&amp;0\<br>0&amp;-2&amp;1\<br>}\right]<br>\left[\matrix{<br>1&amp;2&amp;1\<br>0&amp;2&amp;-2\<br>0&amp;4&amp;1\<br>}\right]&#x3D;<br>\left[\matrix{<br>1&amp;2&amp;1\<br>0&amp;2&amp;-2\<br>0&amp;0&amp;5\<br>}\right]<br>$$</p>
+<p>So:<br>$$<br>E_{32}(E_{21}A)&#x3D;U\<br>what\times A&#x3D;U\<br>(E_{32}E_{21})A&#x3D;U\<br>EA&#x3D;U<br>$$<br>permutation：</p>
+<p>exchange rows 1 and 2<br>$$<br>\left[\matrix{<br>0&amp;1\<br>1&amp;0<br>}\right]<br>\left[\matrix{<br>a&amp;b\<br>c&amp;d<br>}\right]&#x3D;<br>\left[\matrix{<br>c&amp;d\<br>a&amp;b<br>}\right]<br>$$<br>交换单位矩阵(identity matrix)的行</p>
+<p>但左乘无法对矩阵<br>$$<br>\left[\matrix{<br>a&amp;b\<br>c&amp;d<br>}\right]$$进行列变换，进行列变换需要进行右乘</p>
+<h4 id="a-better-way-to-get-U-back-to-A"><a href="#a-better-way-to-get-U-back-to-A" class="headerlink" title="a better way to get U back to A"></a>a better way to get U back to A</h4><p>reversing step:</p>
+<p>inverse matrix:</p>
+<ol>
+<li><p>“inverse” mean:</p>
+</li>
+<li><p>$\left[\matrix{1&amp;0&amp;0\3&amp;1&amp;0\0&amp;0&amp;1\}\right] \left[\matrix{1&amp;0&amp;0\-3&amp;1&amp;0\0&amp;0&amp;1\}\right]&#x3D;\left[\matrix{1&amp;0&amp;0\0&amp;1&amp;0\0&amp;0&amp;1\}\right]$</p>
+<p>即$E^{-1}E&#x3D;I$</p>
+</li>
+</ol>
+<h3 id="矩阵运算的特征"><a href="#矩阵运算的特征" class="headerlink" title="矩阵运算的特征"></a>矩阵运算的特征</h3><ol>
+<li>associative law（结合率）</li>
+<li>置换矩阵</li>
+<li>矩阵乘法不能交换，$AB\neq BA$</li>
+</ol>
+<h3 id="矩阵的运算法则"><a href="#矩阵的运算法则" class="headerlink" title="矩阵的运算法则"></a>矩阵的运算法则</h3><h4 id="矩阵乘法"><a href="#矩阵乘法" class="headerlink" title="矩阵乘法"></a>矩阵乘法</h4><p>rows of A times columns of B：</p>
+<p>let’s talk about $AB&#x3D;C$</p>
+<p>row i and column j of <strong>C</strong>,calculate it:<br>$$<br>c_{ij}&#x3D;(row\ i\ of\ A)\cdot(colume\ j\ of\ B)&#x3D;\sum_{k&#x3D;1}^na_{ik}b_{kj}<br>$$<br>矩阵相乘并不要求是方阵，即并不要求是square matrix</p>
+<p>但A的列数必须与B的行数相同</p>
+<p>这是标准的方法。</p>
+<p>但可以考虑整行与整列的方法</p>
+<ol>
+<li>columns of C are linear combinations of columns of A</li>
+<li>rows of C are combinations of rows of B</li>
+<li>columns of A times rows of B</li>
+</ol>
+<p>$$<br>column\ of\ A \times row\ of\ B&#x3D;[m\times1][1\times p]\<br>AB&#x3D;\sum{column\ of\ A }\cdot{row\ of\ B}<br>$$</p>
+<ol start="5">
+<li>cut the matrix to blocks, and block multiplication<br>$$<br>A&#x3D;\left[\matrix{A_1&amp;A_2\A_3&amp;A_4}\right]\<br>B&#x3D;\left[\matrix{B_1&amp;B_2\B_3&amp;B_4}\right]\<br>C&#x3D;\left[\matrix{A_1B_1+A_2B_3&amp;A_1B_2+A_2B_4\A_3B_1+A_4B_3&amp;A_3B_2+A_4B_4}\right]<br>$$</li>
+</ol>
+<h4 id="Inverses-square-matrices"><a href="#Inverses-square-matrices" class="headerlink" title="Inverses (square matrices)"></a>Inverses (square matrices)</h4><p>对于矩阵而言，逆是否存在是一个很重要的问题，如果存在，如何求逆也是一个问题。</p>
+<p>如果**A^-1^**存在，有如下公式：<br>$$<br>A^{-1}A&#x3D;I&#x3D;AA^{-1}<br>$$<br>如果A是非方阵，左逆是不等于右逆的。</p>
+<p>以上可逆的矩阵<strong>A</strong>称为<code>invertble</code> <code>non-singular</code>.</p>
+<p>不可逆的矩阵<strong>A</strong>的一个例子:<br>$$<br>A&#x3D;\left[\matrix{1&amp;2\2&amp;4}\right]\<br>$$<br>A不可逆的原因：我可以找到一个$x(x\neq0)$使得$Ax&#x3D;0$</p>
+<p>所以如何求出<strong>A</strong>的逆？</p>
+<p>假设一个2by2的矩阵A<br>$$<br>A&#x3D;\left[\matrix{1&amp;3\2&amp;7}\right]\<br>A^{-1}A&#x3D;I\<br>A\times column\ j\ of\ A^{-1}&#x3D;column\ j\ of\ I<br>$$</p>
+<h5 id="the-Gauss-Jordan-idea-solve-two-equations-at-once"><a href="#the-Gauss-Jordan-idea-solve-two-equations-at-once" class="headerlink" title="the Gauss-Jordan idea(solve two equations at once)"></a>the Gauss-Jordan idea(solve two equations at once)</h5><p>augmented matrix:<br>$$<br>\left[\matrix{<br>1&amp;3\<br>2&amp;7<br>}\right]<br>\left[\matrix{<br>a\<br>b<br>}\right]&#x3D;<br>\left[\matrix{<br>1\<br>0<br>}\right]\<br>\left[\matrix{<br>1&amp;3\<br>2&amp;7<br>}\right]<br>\left[\matrix{<br>c\<br>d<br>}\right]&#x3D;<br>\left[\matrix{<br>0\<br>1<br>}\right]\<br>\left[\matrix{<br>1&amp;3&amp;1&amp;0\<br>2&amp;7&amp;0&amp;1<br>}\right]\<br>将左侧变为单位阵,右侧就是A的逆矩阵\<br>\left[\matrix{<br>1&amp;3&amp;1&amp;0\<br>0&amp;1&amp;-2&amp;1<br>}\right]\to<br>\left[\matrix{<br>1&amp;0&amp;7&amp;-3\<br>0&amp;1&amp;-2&amp;1<br>}\right]\<br>A^{-1}&#x3D;\left[\matrix{<br>7&amp;-3\<br>-2&amp;1<br>}\right]<br>$$<br>What happened?</p>
+<p>为什么消元可以得到<strong>A</strong>的逆？remember E?[above1](#the elimination matrix)<br>$$<br>E[AI]&#x3D;[IA^{-1}]<br>$$</p>
+<h5 id="消元矩阵的乘法"><a href="#消元矩阵的乘法" class="headerlink" title="消元矩阵的乘法"></a>消元矩阵的乘法</h5><p>$$<br>A&#x3D;LU<br>$$</p>
+<p>inverse of <strong>AB</strong>,<strong>A^T^</strong>:<br>$$<br>AB(B^{-1}A^{-1})&#x3D;I<br>$$<br>transpose A^T^:转置的逆是逆的转置<br>$$<br>AA^{-1}&#x3D;I%两侧同时转置<br>\<br>(A^{-1})^TA^T&#x3D;I\<br>(A^{-1})^T&#x3D;(A^T)^{-1}<br>$$<br>消元的目的是为了正确认识矩阵的概念，只是行变换。</p>
+<p>消元矩阵的逆见[above2](#a better way to get U back to A)<br>$$<br>A&#x3D;\left[\matrix{<br>2&amp;1\<br>8&amp;7<br>}\right]\<br>E_{21}&#x3D;\left[\matrix{<br>1&amp;0\<br>-4&amp;1<br>}\right]\<br>E_{21}A&#x3D;U\<br>U&#x3D;\left[\matrix{<br>2&amp;1\<br>0&amp;3<br>}\right]\<br>A&#x3D;LU\<br>L&#x3D;E_{21}^{-1}&#x3D;\left[\matrix{<br>1&amp;0\<br>4&amp;1<br>}\right]\<br>有时候会把主元单独列出来\<br>A&#x3D;\left[\matrix{<br>1&amp;0\<br>4&amp;1<br>}\right]<br>\left[\matrix{<br>2&amp;0\<br>0&amp;3<br>}\right]<br>\left[\matrix{<br>1&amp;1&#x2F;2\<br>0&amp;1<br>}\right]&#x3D;<br>LDU<br>$$<br>So, question is what the <strong>L</strong> stand for? Why we use the letter L?</p>
+<p>U stands for <code>upper</code>, L stands for <code>lower</code></p>
+<p>即上三角阵与下三角阵，L的对角为1，U的对角为主元</p>
+<p>单独列出主元后</p>
+<p>D表示主元，L与U的对角都是1</p>
+<blockquote>
+<p>Matlab可以生成所有的这些</p>
+</blockquote>
+<p>对于2by2矩阵，E和L的区别仅仅是把符号改一下，但是对于3by3的矩阵，L与E会区别很大，以下是解释:<br>$$<br>E_{32}E_{31}E_{21}A&#x3D;U(no\ row\ exchanges)\<br>A&#x3D;E_{21}^{-1}E_{31}^{-1}E_{32}^{-1}U\<br>&#x3D;LU<br>$$<br>一个例子：</p>
+<p>$$<br>E_{32}E_{21}&#x3D;E\<br>\left[\matrix{<br>1&amp;0&amp;0\<br>0&amp;1&amp;0\<br>0&amp;-2&amp;1\<br>}\right]<br>\left[\matrix{<br>1&amp;0&amp;0\<br>-3&amp;1&amp;0\<br>0&amp;0&amp;1\<br>}\right]&#x3D;<br>\left[\matrix{<br>1&amp;0&amp;0\<br>-3&amp;1&amp;0\<br>6&amp;-2&amp;1\<br>}\right]<br>\<br>L&#x3D;E_{21}^{-1}E_{32}^{-1}&#x3D;<br>\left[\matrix{<br>1&amp;0&amp;0\<br>3&amp;1&amp;0\<br>0&amp;0&amp;1\<br>}\right]<br>\left[\matrix{<br>1&amp;0&amp;0\<br>0&amp;1&amp;0\<br>0&amp;2&amp;1\<br>}\right]&#x3D;<br>\left[\matrix{<br>1&amp;0&amp;0\<br>3&amp;1&amp;0\<br>0&amp;2&amp;1\<br>}\right]<br>$$<br>可以看到，两个消元矩阵的乘积<strong>E</strong>中，会多出&#x3D;&#x3D;-6&#x3D;&#x3D;，说明其变换彼此会影响</p>
+<p>而L矩阵仅仅包含了消元乘数。</p>
+<blockquote>
+<p>if no row exchanges, the multipliers go directly into L.</p>
+</blockquote>
+<p>how expensive of elimination?</p>
+<p>cost of <strong>A</strong>:一个n by n matrix，需要进行几次操作？<br>$$<br>n^2+(n-1)^2+\cdots+1&#x3D;\frac{n(n-1)(2n-1)}{6}\approx n^3&#x2F;3<br>$$<br>multiply+subtract为一次operation</p>
+<p>cost of <strong>b</strong>:$n^2$</p>
+<h3 id="transposes-and-permutation"><a href="#transposes-and-permutation" class="headerlink" title="transposes and permutation"></a>transposes and permutation</h3><h4 id="permutations"><a href="#permutations" class="headerlink" title="permutations"></a>permutations</h4><p>置换矩阵可以进行行互换；</p>
+<p>单位阵的置换矩阵：<br>$$<br>\left[\matrix{<br>1&amp;0&amp;0\<br>0&amp;1&amp;0\<br>0&amp;0&amp;1\<br>}\right]\<br>\left[\matrix{<br>0&amp;1&amp;0\<br>1&amp;0&amp;0\<br>0&amp;0&amp;1\<br>}\right],<br>\left[\matrix{<br>1&amp;0&amp;0\<br>0&amp;0&amp;1\<br>0&amp;1&amp;0\<br>}\right],<br>\left[\matrix{<br>0&amp;0&amp;1\<br>0&amp;1&amp;0\<br>1&amp;0&amp;0\<br>}\right],<br>\left[\matrix{<br>0&amp;1&amp;0\<br>0&amp;0&amp;1\<br>1&amp;0&amp;0\<br>}\right],<br>\left[\matrix{<br>0&amp;0&amp;1\<br>1&amp;0&amp;0\<br>0&amp;1&amp;0\<br>}\right]<br>$$<br>所以一共有6个<strong>P</strong></p>
+<p>置换矩阵的性质<br>$$<br>P^{-1}&#x3D;P^T<br>$$</p>
+</div><div class="article-licensing box"><div class="licensing-title"><p>Introduction to linear algebra</p><p><a href="https://llllaaaa2333.github.io/2025/03/22/20250322/">https://llllaaaa2333.github.io/2025/03/22/20250322/</a></p></div><div class="licensing-meta level is-mobile"><div class="level-left"><div class="level-item is-narrow"><div><h6>Author</h6><p>LLLLAAAA</p></div></div><div class="level-item is-narrow"><div><h6>Posted on</h6><p>2025-03-22</p></div></div><div class="level-item is-narrow"><div><h6>Updated on</h6><p>2025-03-22</p></div></div><div class="level-item is-narrow"><div><h6>Licensed under</h6><p><a class="icons" rel="noopener" target="_blank" title="Creative Commons" href="https://creativecommons.org/"><i class="icon fab fa-creative-commons"></i></a><a class="icons" rel="noopener" target="_blank" title="Attribution" href="https://creativecommons.org/licenses/by/4.0/"><i class="icon fab fa-creative-commons-by"></i></a><a class="icons" rel="noopener" target="_blank" title="Noncommercial" href="https://creativecommons.org/licenses/by-nc/4.0/"><i class="icon fab fa-creative-commons-nc"></i></a></p></div></div></div></div></div><div class="article-tags is-size-7 mb-4"><span class="mr-2">#</span><a class="link-muted mr-2" rel="tag" href="/tags/study/">study</a></div><!--!--></article></div><!--!--><nav class="post-navigation mt-4 level is-mobile"><div class="level-end"><a class="article-nav-next level level-item link-muted" href="/2025/03/16/20250316/"><span class="level-item">VScode无法用activate</span><i class="level-item fas fa-chevron-right"></i></a></div></nav><div class="card" id="comments"><div class="card-content"><h3 class="title is-5">Comments</h3><script src="https://utteranc.es/client.js" repo="LLLLAAAA2333/comments" issue-term="pathname" label="comments" theme="github-light" crossorigin="anonymous" async></script></div></div></div><div class="column column-left is-4-tablet is-4-desktop is-4-widescreen  order-1"><div class="card widget" data-type="profile"><div class="card-content"><nav class="level"><div class="level-item has-text-centered flex-shrink-1"><div><figure class="image is-128x128 mx-auto mb-2"><img class="avatar" src="https://github.com/WAAANGJH/WAAANGJH.github.io/blob/main/img/friend_404.gif?raw=true" alt="LLLLAAAA"></figure><p class="title is-size-4 is-block" style="line-height:inherit;">LLLLAAAA</p><p class="is-size-6 is-flex justify-content-center"><i class="fas fa-map-marker-alt mr-1"></i><span>Hefei, China</span></p></div></div></nav><nav class="level is-mobile"><div class="level-item has-text-centered is-marginless"><div><p class="heading">Posts</p><a href="/archives/"><p class="title">12</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Categories</p><a href="/categories/"><p class="title">4</p></a></div></div><div class="level-item has-text-centered is-marginless"><div><p class="heading">Tags</p><a href="/tags/"><p class="title">5</p></a></div></div></nav><div class="level"><a class="level-item button is-primary is-rounded" href="https://github.com/LLLLAAAA2333" target="_blank" rel="me noopener">Follow</a></div><div class="level is-mobile is-multiline"><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Github" href="https://github.com/LLLLAAAA2333"><i class="fab fa-github"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="Bilibili" href="https://space.bilibili.com/1086305607"><i class="fa-brands fa-bilibili"></i></a><a class="level-item button is-transparent is-marginless" target="_blank" rel="me noopener" title="RSS" href="https://llllaaaa2333.github.io/atom.xml"><i class="fas fa-rss"></i></a></div></div></div><!--!--><div class="card widget" data-type="links"><div class="card-content"><div class="menu"><h3 class="menu-label">Links</h3><ul class="menu-list"><li><a class="level is-mobile" href="https://hexo.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Hexo</span></span><span class="level-right"><span class="level-item tag">hexo.io</span></span></a></li><li><a class="level is-mobile" href="https://bulma.io" target="_blank" rel="noopener"><span class="level-left"><span class="level-item">Bulma</span></span><span class="level-right"><span class="level-item tag">bulma.io</span></span></a></li></ul></div></div></div><div class="card widget" data-type="categories"><div class="card-content"><div class="menu"><h3 class="menu-label">Categories</h3><ul class="menu-list"><li><a class="level is-mobile" href="/categories/ACG/"><span class="level-start"><span class="level-item">ACG</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%AD%A6%E4%B9%A0/"><span class="level-start"><span class="level-item">学习</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/categories/%E5%B7%A5%E5%85%B7/"><span class="level-start"><span class="level-item">工具</span></span><span class="level-end"><span class="level-item tag">5</span></span></a></li><li><a class="level is-mobile" href="/categories/%E9%9A%8F%E7%AC%94/"><span class="level-start"><span class="level-item">随笔</span></span><span class="level-end"><span class="level-item tag">3</span></span></a></li></ul></div></div></div><div class="card widget" data-type="recent-posts"><div class="card-content"><h3 class="menu-label">Recents</h3><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-03-22T14:46:27.000Z">2025-03-22</time></p><p class="title"><a href="/2025/03/22/20250322/">Introduction to linear algebra</a></p><p class="categories"><a href="/categories/%E5%AD%A6%E4%B9%A0/">学习</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-03-16T02:50:05.000Z">2025-03-16</time></p><p class="title"><a href="/2025/03/16/20250316/">VScode无法用activate</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-28T15:59:03.000Z">2025-02-28</time></p><p class="title"><a href="/2025/02/28/20250228/">添加背景</a></p><p class="categories"><a href="/categories/%E5%B7%A5%E5%85%B7/">工具</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-26T13:51:55.000Z">2025-02-26</time></p><p class="title"><a href="/2025/02/26/20250226/">眼镜的防伪标识</a></p><p class="categories"><a href="/categories/%E9%9A%8F%E7%AC%94/">随笔</a></p></div></article><article class="media"><div class="media-content"><p class="date"><time dateTime="2025-02-21T12:56:30.000Z">2025-02-21</time></p><p class="title"><a href="/2025/02/21/0221/">ACB资源汇总</a></p><p class="categories"><a href="/categories/ACG/">ACG</a></p></div></article></div></div><div class="card widget" data-type="archives"><div class="card-content"><div class="menu"><h3 class="menu-label">Archives</h3><ul class="menu-list"><li><a class="level is-mobile" href="/archives/2025/03/"><span class="level-start"><span class="level-item">March 2025</span></span><span class="level-end"><span class="level-item tag">2</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/02/"><span class="level-start"><span class="level-item">February 2025</span></span><span class="level-end"><span class="level-item tag">9</span></span></a></li><li><a class="level is-mobile" href="/archives/2025/01/"><span class="level-start"><span class="level-item">January 2025</span></span><span class="level-end"><span class="level-item tag">1</span></span></a></li></ul></div></div></div><div class="card widget" data-type="tags"><div class="card-content"><div class="menu"><h3 class="menu-label">Tags</h3><div class="field is-grouped is-grouped-multiline"><div class="control"><a class="tags has-addons" href="/tags/Hexo/"><span class="tag">Hexo</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/fun/"><span class="tag">fun</span><span class="tag">7</span></a></div><div class="control"><a class="tags has-addons" href="/tags/git/"><span class="tag">git</span><span class="tag">1</span></a></div><div class="control"><a class="tags has-addons" href="/tags/study/"><span class="tag">study</span><span class="tag">6</span></a></div><div class="control"><a class="tags has-addons" href="/tags/%E8%BF%87%E5%B9%B4/"><span class="tag">过年</span><span class="tag">1</span></a></div></div></div></div></div></div><!--!--></div></div></section><footer class="footer"><div class="container"><div class="level"><div class="level-start"><a class="footer-logo is-block mb-2" href="/"><img src="/img/logo.svg" alt="JH&#039;s Blog" height="28"></a><p class="is-size-7"><span>&copy; 2025 LLLLAAAA</span>  Powered by <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a> &amp; <a href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank" rel="noopener">Icarus</a></p><p class="is-size-7">© 2019</p></div><div class="level-end"><div class="field has-addons"><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Creative Commons" href="https://creativecommons.org/"><i class="fab fa-creative-commons"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Attribution 4.0 International" href="https://creativecommons.org/licenses/by/4.0/"><i class="fab fa-creative-commons-by"></i></a></p><p class="control"><a class="button is-transparent is-large" target="_blank" rel="noopener" title="Download on GitHub" href="https://github.com/ppoffice/hexo-theme-icarus"><i class="fab fa-github"></i></a></p></div></div></div></div></footer><script src="https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/moment@2.22.2/min/moment-with-locales.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.4/dist/clipboard.min.js" defer></script><script>moment.locale("en");</script><script>var IcarusThemeSettings = {
+            article: {
+                highlight: {
+                    clipboard: true,
+                    fold: 'unfolded'
+                }
+            }
+        };</script><script data-pjax src="/js/column.js"></script><script src="/js/animation.js"></script><a id="back-to-top" title="Back to top" href="javascript:;"><i class="fas fa-chevron-up"></i></a><script data-pjax src="/js/back_to_top.js" defer></script><!--!--><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/cookieconsent@3.1.1/build/cookieconsent.min.js" defer></script><script>window.addEventListener("load", () => {
+      window.cookieconsent.initialise({
+        type: "info",
+        theme: "edgeless",
+        static: false,
+        position: "bottom-left",
+        content: {
+          message: "This website uses cookies to improve your experience.",
+          dismiss: "Got it!",
+          allow: "Allow cookies",
+          deny: "Decline",
+          link: "Learn more",
+          policy: "Cookie Policy",
+          href: "https://www.cookiesandyou.com/",
+        },
+        palette: {
+          popup: {
+            background: "#edeff5",
+            text: "#838391"
+          },
+          button: {
+            background: "#4b81e8"
+          },
+        },
+      });
+    });</script><script src="https://cdn.jsdelivr.net/npm/lightgallery@1.10.0/dist/js/lightgallery.min.js" defer></script><script src="https://cdn.jsdelivr.net/npm/justifiedGallery@3.8.1/dist/js/jquery.justifiedGallery.min.js" defer></script><script>window.addEventListener("load", () => {
+            if (typeof $.fn.lightGallery === 'function') {
+                $('.article').lightGallery({ selector: '.gallery-item' });
+            }
+            if (typeof $.fn.justifiedGallery === 'function') {
+                if ($('.justified-gallery > p > .gallery-item').length) {
+                    $('.justified-gallery > p > .gallery-item').unwrap();
+                }
+                $('.justified-gallery').justifiedGallery();
+            }
+        });</script><!--!--><!--!--><script src="https://cdn.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="/js/pjax.js"></script><!--!--><!--!--><!--!--><script data-pjax src="/js/main.js" defer></script><div class="searchbox"><div class="searchbox-container"><div class="searchbox-header"><div class="searchbox-input-container"><input class="searchbox-input" type="text" placeholder="Type something..."></div><a class="searchbox-close" href="javascript:;">×</a></div><div class="searchbox-body"></div></div></div><script data-pjax src="/js/insight.js" defer></script><script data-pjax>document.addEventListener('DOMContentLoaded', function () {
+            loadInsight({"contentUrl":"/content.json"}, {"hint":"Type something...","untitled":"(Untitled)","posts":"Posts","pages":"Pages","categories":"Categories","tags":"Tags"});
+        });</script></body></html>
