@@ -6,7 +6,7 @@
   <link href="https://llllaaaa2333.github.io/atom.xml" rel="self"/>
   
   <link href="https://llllaaaa2333.github.io/"/>
-  <updated>2025-04-11T15:02:00.779Z</updated>
+  <updated>2025-04-17T14:49:09.475Z</updated>
   <id>https://llllaaaa2333.github.io/</id>
   
   <author>
@@ -19,6 +19,32 @@
   </follow_challenge>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Git commit 规范</title>
+    <link href="https://llllaaaa2333.github.io/2025/04/17/20250417/"/>
+    <id>https://llllaaaa2333.github.io/2025/04/17/20250417/</id>
+    <published>2025-04-17T14:47:17.000Z</published>
+    <updated>2025-04-17T14:49:09.475Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Angular’s-Format"><a href="#Angular’s-Format" class="headerlink" title="Angular’s Format"></a>Angular’s Format</h2><p>以angular团队的提交格式作为标准，Each commit message consists of a <strong>header</strong>, a <strong>body</strong>, and a <strong>footer</strong>.<br><figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;[optional scope]: &lt;description&gt;</span><br><span class="line">blank line</span><br><span class="line">[optional body]</span><br><span class="line">blank line</span><br><span class="line">[optional footer]</span><br></pre></td></tr></table></figure></p><h3 id="header"><a href="#header" class="headerlink" title="header"></a>header</h3><p>header格式如下：<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;type&gt;(&lt;scope&gt;): &lt;short summary&gt;</span><br><span class="line"></span><br><span class="line">&lt;type&gt; -&gt; Commit Type: build|ci|docs|feat|fix|perf|refactor|test</span><br></pre></td></tr></table></figure></p><h4 id="type"><a href="#type" class="headerlink" title="type"></a>type</h4><p>type 的分类如下表示：</p><ul><li>build: 编译相关的内容，发布版本、对项目构建或者依赖的改动，即npm、gulp、yarn等文件的修改</li><li>ci: 修改了持续集成，示例范围：Travis、Circle、BrowserStack、SauceLabs</li><li>docs：修改md或其余说明性文档。</li><li>feat：新功能（feature）。</li><li>fix/to：修复bug</li><li>perf：优化相关，比如提升性能、体验。</li><li>refactor：重构（即不是新增功能，也不是修改bug的代码变动）。</li><li>style：格式（不影响代码逻辑和运行的变动）。</li><li>test：增加测试。</li><li>chore：杂务，构建过程或辅助工具的变动等。</li><li>revert：回滚到上一个版本。在正文中添加”This reverts commit hash”，其中hash值表示被回滚前的提交</li><li>sync：同步主线或分支的Bug。<h4 id="scope"><a href="#scope" class="headerlink" title="scope"></a>scope</h4><blockquote><p>optional</p></blockquote></li></ul><p>作为type字段的补充型说明</p><h4 id="description"><a href="#description" class="headerlink" title="description"></a>description</h4><p>简单明了的描述清楚事件</p><h3 id="body"><a href="#body" class="headerlink" title="body"></a>body</h3><blockquote><p>optional</p></blockquote><p>对本次 commit 的详细描述，可以分成多行。<br>（1）使用第一人称现在时，比如使用change而不是changed或changes。<br>（2）应该说明代码变动的动机，以及与以前行为的对比。</p><h3 id="footer"><a href="#footer" class="headerlink" title="footer"></a>footer</h3><p>Breaking changes<br>不兼容修改指的是本次提交修改了不兼容之前版本的API或者环境变量<br>所有不兼容修改都必须在页脚中作为中断更改块提到，以BREAKING CHANGE:开头，后跟一个空格或者两个换行符，其余的信息就是对此次修改的描述，修改的理由和修改注释</p><h2 id="examples-from-Conventional-Commits"><a href="#examples-from-Conventional-Commits" class="headerlink" title="examples(from Conventional Commits )"></a>examples(from <a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/">Conventional Commits</a> )</h2><p>包含了描述并且脚注中有破坏性变更的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">feat: allow provided config object to extend other configs</span><br><span class="line"></span><br><span class="line">BREAKING CHANGE: `extends` key in config file is now used for extending other config files</span><br></pre></td></tr></table></figure></p><p>包含了 <code>!</code> 字符以提醒注意破坏性变更的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat!: send an email to the customer when a product is shipped</span><br></pre></td></tr></table></figure></p><p>包含了范围和破坏性变更 <code>!</code> 的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat(api)!: send an email to the customer when a product is shipped</span><br></pre></td></tr></table></figure></p><p>包含了 <code>!</code> 和 BREAKING CHANGE 脚注的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">chore!: drop support for Node 6</span><br><span class="line"></span><br><span class="line">BREAKING CHANGE: use JavaScript features not available in Node 6.</span><br></pre></td></tr></table></figure></p><p>不包含正文的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docs: correct spelling of CHANGELOG</span><br></pre></td></tr></table></figure></p><p>包含范围的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feat(lang): add polish language</span><br></pre></td></tr></table></figure></p><p>包含多行正文和多行脚注的提交说明<br><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">fix: prevent racing of requests</span><br><span class="line"></span><br><span class="line">Introduce a request id and a reference to latest request. Dismiss</span><br><span class="line">incoming responses other than from latest request.</span><br><span class="line"></span><br><span class="line">Remove timeouts which were used to mitigate the racing issue but are</span><br><span class="line">obsolete now.</span><br><span class="line"></span><br><span class="line">Reviewed-by: Z</span><br><span class="line">Refs: #123</span><br></pre></td></tr></table></figure></p><h2 id="参考链接"><a href="#参考链接" class="headerlink" title="参考链接"></a>参考链接</h2><ul><li><a href="https://www.conventionalcommits.org/en/v1.0.0-beta.4/">Conventional Commits</a> </li><li><a href="https://github.com/angular/angular/blob/main/contributing-docs/commit-message-guidelines.md">angular/contributing-docs/commit-message-guidelines.md at main · angular/angular</a> </li><li><a href="https://zj-git-guide.readthedocs.io/zh-cn/latest/message/Angular%E6%8F%90%E4%BA%A4%E4%BF%A1%E6%81%AF%E8%A7%84%E8%8C%83/">Angular提交信息规范 - Git Guide</a> </li><li><a href="https://zhuanlan.zhihu.com/p/609904233">Git commit规范（Angular） - 知乎</a> </li></ul>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;Angular’s-Format&quot;&gt;&lt;a href=&quot;#Angular’s-Format&quot; class=&quot;headerlink&quot; title=&quot;Angular’s Format&quot;&gt;&lt;/a&gt;Angular’s Format&lt;/h2&gt;&lt;p&gt;以angular团队的提交格</summary>
+      
+    
+    
+    
+    <category term="学习" scheme="https://llllaaaa2333.github.io/categories/%E5%AD%A6%E4%B9%A0/"/>
+    
+    
+    <category term="study" scheme="https://llllaaaa2333.github.io/tags/study/"/>
+    
+    <category term="git" scheme="https://llllaaaa2333.github.io/tags/git/"/>
+    
+  </entry>
   
   <entry>
     <title>自行车</title>
