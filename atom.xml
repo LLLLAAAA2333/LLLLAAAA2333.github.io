@@ -6,7 +6,7 @@
   <link href="https://llllaaaa2333.github.io/atom.xml" rel="self"/>
   
   <link href="https://llllaaaa2333.github.io/"/>
-  <updated>2025-06-17T15:51:47.337Z</updated>
+  <updated>2025-06-17T15:52:52.967Z</updated>
   <id>https://llllaaaa2333.github.io/</id>
   
   <author>
@@ -25,15 +25,12 @@
     <link href="https://llllaaaa2333.github.io/2025/06/17/20250616/"/>
     <id>https://llllaaaa2333.github.io/2025/06/17/20250616/</id>
     <published>2025-06-17T15:34:55.000Z</published>
-    <updated>2025-06-17T15:51:47.337Z</updated>
+    <updated>2025-06-17T15:52:52.967Z</updated>
     
-    <content type="html"><![CDATA[<h2 id="什么是Sunshine和Moonlight？"><a href="#什么是Sunshine和Moonlight？" class="headerlink" title="什么是Sunshine和Moonlight？"></a>什么是Sunshine和Moonlight？</h2><p>Sunshine是一个开源的游戏串流服务器，Moonlight是其客户端。它们可以在不同的操作系统上运行，支持高质量的游戏串流。<br>首先，什么是串流？串流是指将游戏画面从一台计算机传输到另一台计算机或设备上进行播放。Sunshine和Moonlight可以让你在低延迟的情况下享受高质量的游戏体验。所以这里串流可以拓展到游戏之外的应用场景，比如远程桌面、视频播放等。</p><h2 id="局域网串流"><a href="#局域网串流" class="headerlink" title="局域网串流"></a>局域网串流</h2><p>这里我使用的都是局域网环境，Sunshine作为服务器运行在一台主机上，而Moonlight作为客户端运行在另一台设备上。<br>步骤：</p><ol><li><strong>安装Sunshine</strong>：在你的主机上安装Sunshine。可以从<a href="https://github.com/LizardByte/Sunshine">Sunshine的GitHub页面</a>下载最新版本。安装过程通常很简单，只需按照说明进行即可。</li><li><strong>配置Sunshine</strong>：安装完成后，启动Sunshine并进行基本配置。这里可以打开一个浏览器访问Sunshine的Web界面，通常是<code>http://localhost:47990</code>。在此处可以设置Sunshine使用的IP地址族（IPv4或IPv6）、端口等参数。还可以设置游戏目录、控制器等选项。</li><li><strong>安装Moonlight</strong>：在你的客户端设备上安装Moonlight。可以从<a href="https://github.com/moonlight-stream/moonlight-android">Moonlight的GitHub页面</a> 下载安卓设备的APK，或在其他平台上使用相应的安装包。</li><li><strong>连接到Sunshine</strong>：在Moonlight中，添加Sunshine服务器的IP地址。Moonlight会自动扫描局域网中的Sunshine服务器，并显示在列表中。选择你的Sunshine服务器并进行配对。<br>由于这里只涉及局域网环境，所以配对过程通常很简单，只需输入Sunshine的配对码即可。</li><li><strong>开始串流</strong>：一旦连接成功，你就可以在Moonlight中看到Sunshine服务器上可用的游戏列表。选择一个游戏并点击开始串流。Moonlight会将游戏画面传输到你的客户端设备上，你可以使用控制器或键盘鼠标进行操作。</li></ol><h2 id="其他应用场景："><a href="#其他应用场景：" class="headerlink" title="其他应用场景："></a>其他应用场景：</h2><p>无线副屏：比如使用手上闲置的iPad，在windows上下载<a href="https://github.com/nomi-san/parsec-vdd/releases">parsec-vdd</a>可以建立一个虚拟的屏幕，之后将sunshine的输出设置到这个虚拟屏幕上，然后在iPad上使用Moonlight连接到这个虚拟屏幕，就可以实现无线副屏的效果。<br><img src="/2025/06/17/20250616/sunshine.png" alt="sunshine配置"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://github.com/LizardByte/Sunshine">Sunshine GitHub</a></li><li><a href="https://www.bilibili.com/video/BV13i421U7zf?spm_id_from=333.788.videopod.sections&amp;vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">几乎无延迟的无线副屏？sunshine+moonlight最强串流！【保姆级教学】_哔哩哔哩_bilibili</a> </li></ul>]]></content>
+    <content type="html"><![CDATA[<h2 id="什么是Sunshine和Moonlight？"><a href="#什么是Sunshine和Moonlight？" class="headerlink" title="什么是Sunshine和Moonlight？"></a>什么是Sunshine和Moonlight？</h2><p>Sunshine是一个开源的游戏串流服务器，Moonlight是其客户端。它们可以在不同的操作系统上运行，支持高质量的游戏串流。<br>首先，什么是串流？串流是指将游戏画面从一台计算机传输到另一台计算机或设备上进行播放。Sunshine和Moonlight可以让你在低延迟的情况下享受高质量的游戏体验。所以这里串流可以拓展到游戏之外的应用场景，比如远程桌面、视频播放等。</p><span id="more"></span><h2 id="局域网串流"><a href="#局域网串流" class="headerlink" title="局域网串流"></a>局域网串流</h2><p>这里我使用的都是局域网环境，Sunshine作为服务器运行在一台主机上，而Moonlight作为客户端运行在另一台设备上。<br>步骤：</p><ol><li><strong>安装Sunshine</strong>：在你的主机上安装Sunshine。可以从<a href="https://github.com/LizardByte/Sunshine">Sunshine的GitHub页面</a>下载最新版本。安装过程通常很简单，只需按照说明进行即可。</li><li><strong>配置Sunshine</strong>：安装完成后，启动Sunshine并进行基本配置。这里可以打开一个浏览器访问Sunshine的Web界面，通常是<code>http://localhost:47990</code>。在此处可以设置Sunshine使用的IP地址族（IPv4或IPv6）、端口等参数。还可以设置游戏目录、控制器等选项。</li><li><strong>安装Moonlight</strong>：在你的客户端设备上安装Moonlight。可以从<a href="https://github.com/moonlight-stream/moonlight-android">Moonlight的GitHub页面</a> 下载安卓设备的APK，或在其他平台上使用相应的安装包。</li><li><strong>连接到Sunshine</strong>：在Moonlight中，添加Sunshine服务器的IP地址。Moonlight会自动扫描局域网中的Sunshine服务器，并显示在列表中。选择你的Sunshine服务器并进行配对。<br>由于这里只涉及局域网环境，所以配对过程通常很简单，只需输入Sunshine的配对码即可。</li><li><strong>开始串流</strong>：一旦连接成功，你就可以在Moonlight中看到Sunshine服务器上可用的游戏列表。选择一个游戏并点击开始串流。Moonlight会将游戏画面传输到你的客户端设备上，你可以使用控制器或键盘鼠标进行操作。</li></ol><h2 id="其他应用场景："><a href="#其他应用场景：" class="headerlink" title="其他应用场景："></a>其他应用场景：</h2><p>无线副屏：比如使用手上闲置的iPad，在windows上下载<a href="https://github.com/nomi-san/parsec-vdd/releases">parsec-vdd</a>可以建立一个虚拟的屏幕，之后将sunshine的输出设置到这个虚拟屏幕上，然后在iPad上使用Moonlight连接到这个虚拟屏幕，就可以实现无线副屏的效果。<br><img src="/2025/06/17/20250616/sunshine.png" alt="sunshine配置"></p><h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul><li><a href="https://github.com/LizardByte/Sunshine">Sunshine GitHub</a></li><li><a href="https://www.bilibili.com/video/BV13i421U7zf?spm_id_from=333.788.videopod.sections&amp;vd_source=4f05b05eb19ffd33468ed22d8ea0de7a">几乎无延迟的无线副屏？sunshine+moonlight最强串流！【保姆级教学】_哔哩哔哩_bilibili</a> </li></ul>]]></content>
     
     
-      
-      
-    <summary type="html">&lt;h2 id=&quot;什么是Sunshine和Moonlight？&quot;&gt;&lt;a href=&quot;#什么是Sunshine和Moonlight？&quot; class=&quot;headerlink&quot; title=&quot;什么是Sunshine和Moonlight？&quot;&gt;&lt;/a&gt;什么是Sunshine和Moonligh</summary>
-      
+    <summary type="html">&lt;h2 id=&quot;什么是Sunshine和Moonlight？&quot;&gt;&lt;a href=&quot;#什么是Sunshine和Moonlight？&quot; class=&quot;headerlink&quot; title=&quot;什么是Sunshine和Moonlight？&quot;&gt;&lt;/a&gt;什么是Sunshine和Moonlight？&lt;/h2&gt;&lt;p&gt;Sunshine是一个开源的游戏串流服务器，Moonlight是其客户端。它们可以在不同的操作系统上运行，支持高质量的游戏串流。&lt;br&gt;首先，什么是串流？串流是指将游戏画面从一台计算机传输到另一台计算机或设备上进行播放。Sunshine和Moonlight可以让你在低延迟的情况下享受高质量的游戏体验。所以这里串流可以拓展到游戏之外的应用场景，比如远程桌面、视频播放等。&lt;/p&gt;</summary>
     
     
     
