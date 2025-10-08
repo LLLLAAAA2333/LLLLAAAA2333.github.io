@@ -1,0 +1,32 @@
+---
+import LayoutDefault from '~/layouts/LayoutDefault.astro'
+import { getPosts } from '~/utils/index'
+
+const { translate: t } = Astro.locals
+const allPosts = await getPosts()
+const allTags = new Map<string, number>()
+
+allPosts.forEach(post => {
+  post.data.tags?.forEach(tag => {
+    allTags.set(tag, (allTags.get(tag) ?? 0) + 1);
+  });
+});
+
+const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1] - a[1]);
+---
+
+<LayoutDefault>
+  <section>
+    <h2 class="post-title">{t('Tags')}</h2>
+    <ul class="pl-6" flex="~ col gap-4">
+      {sortedTags.map(([tag, count]) => (
+        <li>
+          <h3 class="post-title">
+            <a href={`/tags/${tag}`}># {tag}</a>
+          </h3>
+          <p>{t('tag_count', count)}</p>
+        </li>
+      ))}
+    </ul>
+  </section>
+</LayoutDefault>

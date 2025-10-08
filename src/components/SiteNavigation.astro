@@ -1,10 +1,15 @@
 ---
 import { themeConfig } from '~/.config'
 
-const { navLinks, socialLinks } = themeConfig.site
+const { navLinks, socialLinks, author, description } = themeConfig.site
 const { translate: t } = Astro.locals
 ---
 
+<div class="text-center mb-8">
+  <img src="/hornet.png" alt={author} class="w-24 h-24 mx-auto rounded-full mb-4 shadow-lg">
+  <h2 class="text-xl font-bold">{author}</h2>
+  <p class="text-sm mt-2">{description}</p>
+</div>
 <nav class="text-center font-bold" flex="~ col gap-4">
   <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center">
     {

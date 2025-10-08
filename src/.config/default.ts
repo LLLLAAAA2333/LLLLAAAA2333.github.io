@@ -5,29 +5,21 @@ import type { ThemeConfig } from '~/types'
 
 export const defaultConfig: ThemeConfig = {
   site: {
-    title: '活版印字',
-    subtitle: 'Typography',
-    author: 'Moeyua',
-    description: 'Rediscory the beauty of typography',
+    title: 'LLAA Home',
+    subtitle: '无目的读书是散步而不是学习',
+    author: '',
+    description: '',
     website: 'https://astro-theme-typography.vercel.app/',
     pageSize: 5,
     socialLinks: [
       {
         name: 'github',
-        href: 'https://github.com/moeyua/astro-theme-typography',
+        href: 'https://github.com/LLLLAAAA2333',
       },
       {
         name: 'rss',
         href: '/atom.xml',
-      },
-      {
-        name: 'twitter',
-        href: 'https://github.com/moeyua/astro-theme-typography',
-      },
-      {
-        name: 'mastodon',
-        href: 'https://github.com/moeyua/astro-theme-typography',
-      },
+      }
     ],
     navLinks: [
       {
@@ -49,7 +41,7 @@ export const defaultConfig: ThemeConfig = {
     ],
     categoryMap: [{ name: '胡适', path: 'hu-shi' }],
     footer: [
-      '© %year <a target="_blank" href="%website">%author</a>',
+      '© %year <a target="_blank" href="https://llllaaaa2333.github.io/">LLLLAAAA</a>',
       'Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a>',
       'Proudly published with <a target="_blank" href="https://astro.build/">Astro</a>',
     ],
@@ -80,13 +72,25 @@ export const defaultConfig: ThemeConfig = {
     fullText: true,
   },
   comment: {
-    // disqus: { shortname: "typography-astro" },
+    giscus: {
+      repo: 'LLLLAAAA2333/LLLLAAAA2333.github.io',
+      repoId: 'R_kgDOP9PQvw',
+      category: 'General',
+      categoryId: 'DIC_kwDOP9PQv84CwYgX',
+      mapping: 'pathname',
+      strict: '0',
+      reactionsEnabled: '1',
+      emitMetadata: '0',
+      inputPosition: 'top',
+      theme: 'light', // 'light', 'dark', 'preferred_color_scheme'
+      lang: 'zh-CN',
+    }
   },
   analytics: {
     googleAnalyticsId: '',
     umamiAnalyticsId: '',
   },
   latex: {
-    katex: false,
+    katex: true,
   },
 }
