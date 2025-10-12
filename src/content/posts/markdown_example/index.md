@@ -1,14 +1,12 @@
 ---
-title: Markdown Example
-pubDate: 1921-01-10
-modDate: 2025-01-03 15:01
-categories: ["Examples"]
-description: "Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro."
-slug: markdown-example
-draft: true
-pin: true
+title: Markdown Tutorial
+pubDate: 2025-10-01
+pin: false
+description: A simple example of a Markdown blog post.
+tags: [Markdown]
+categories: ['study']
+draft: false
 ---
-
 Here is a sample of some basic Markdown syntax that can be used when writing Markdown content in Astro.
 
 ## Headings
@@ -40,10 +38,6 @@ Itatur? Quiatae cullecum rem ent aut odis in re eossequodi nonsequ idebis ne sap
 ```markdown
 ![Alt text](./full/or/relative/path/of/image)
 ```
-
-### Output
-
-![blog placeholder](/blog-placeholder-about.jpg)
 
 ## Blockquotes
 
