@@ -1,5 +1,6 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
+import { Image } from 'astro:assets';
 import Comments from '~/components/Comments.astro'
 import Pagination from '~/components/Pagination.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
@@ -34,7 +35,17 @@ function getUrl(id: string) {
 
 <LayoutDefault>
   <SiteSeo slot="seo" title={entry.data.title} desc={entry.data.description} banner={entry.data.banner} />
-
+  {entry.data.banner && (
+    <div class="mb-8">
+      <Image 
+        src={entry.data.banner} 
+        alt={`Banner for ${entry.data.title}`} 
+        class="rounded-lg shadow-md" 
+        widths={[480, 720, 1080, entry.data.banner.width]}
+        sizes={`(max-width: 768px) 100vw, 720px`}
+      />
+    </div>
+  )}
   <LayoutPost post={entry}>
     <Content />
   </LayoutPost>
