@@ -9,7 +9,7 @@ export const defaultConfig: ThemeConfig = {
     subtitle: '无目的读书是散步而不是学习',
     author: '',
     description: '',
-    website: 'https://astro-theme-typography.vercel.app/',
+    website: 'https://llllaaaa2333.github.io/',
     pageSize: 5,
     socialLinks: [
       {
@@ -19,7 +19,7 @@ export const defaultConfig: ThemeConfig = {
       {
         name: 'rss',
         href: '/atom.xml',
-      }
+      },
     ],
     navLinks: [
       {
@@ -84,7 +84,7 @@ export const defaultConfig: ThemeConfig = {
       inputPosition: 'top',
       theme: 'light', // 'light', 'dark', 'preferred_color_scheme'
       lang: 'zh-CN',
-    }
+    },
   },
   analytics: {
     googleAnalyticsId: '',
