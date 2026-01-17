@@ -47,6 +47,7 @@ export default defineConfig({
       smoothScrolling: true,
       updateHead: true,
       updateBodyClass: true,
+      containers: ['main', '#toc-container'],
     }),
   ],
 })
