@@ -1,6 +1,6 @@
 ---
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
-import { Image } from 'astro:assets';
+import { Image } from 'astro:assets'
 import Comments from '~/components/Comments.astro'
 import Pagination from '~/components/Pagination.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
@@ -25,8 +25,10 @@ export const getStaticPaths = (async () => {
 type Props = InferGetStaticPropsType<typeof getStaticPaths>
 
 const { entry, prev, next } = Astro.props
-const { Content } = await render(entry)
+const { Content, headings } = await render(entry)
 const { translate: t } = Astro.locals
+
+import TableOfContents from '~/components/TableOfContents.astro'
 
 function getUrl(id: string) {
   return `/posts/${id}`
@@ -34,18 +36,22 @@ function getUrl(id: string) {
 ---
 
 <LayoutDefault>
+  <TableOfContents slot="toc" headings={headings} />
+
   <SiteSeo slot="seo" title={entry.data.title} desc={entry.data.description} banner={entry.data.banner} />
-  {entry.data.banner && (
-    <div class="mb-8">
-      <Image 
-        src={entry.data.banner} 
-        alt={`Banner for ${entry.data.title}`} 
-        class="rounded-lg shadow-md" 
-        widths={[480, 720, 1080, entry.data.banner.width]}
-        sizes={`(max-width: 768px) 100vw, 720px`}
-      />
-    </div>
-  )}
+  {
+    entry.data.banner && (
+      <div class="mb-8">
+        <Image
+          src={entry.data.banner}
+          alt={`Banner for ${entry.data.title}`}
+          class="rounded-lg shadow-md"
+          widths={[480, 720, 1080, entry.data.banner.width]}
+          sizes={`(max-width: 768px) 100vw, 720px`}
+        />
+      </div>
+    )
+  }
   <LayoutPost post={entry}>
     <Content />
   </LayoutPost>
