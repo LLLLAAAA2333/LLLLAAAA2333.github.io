@@ -1,8 +1,8 @@
 ---
 title: "使用Sunshine与Moonlight实现串流"
 pubDate: 2025-06-16
-categories: [amusement]
-tags: [串流]
+categories: [life]
+tags: [Life]
 description: '串流工具'
 draft: false
 ---

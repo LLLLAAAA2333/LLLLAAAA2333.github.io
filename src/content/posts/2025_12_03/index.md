@@ -5,7 +5,6 @@ categories:
   - neuroscience
 tags:
   - Neuroscience
-  - knowledge
 ---
 
 > Neuroscience is the study of the nervous system – from structure to function, development to [[001_degeneration|degeneration]], in health and in disease.

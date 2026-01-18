@@ -1,8 +1,8 @@
 ---
 title: "Git_command"
 pubDate: 2025-10-12
-categories: [study]
-tags: [Git, Programming]
+categories: [program]
+tags: [Code]
 description: 'Git的常用命令及其功能介绍'
 draft: false
 ---

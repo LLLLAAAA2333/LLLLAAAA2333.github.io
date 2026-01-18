@@ -5,7 +5,6 @@ categories:
   - life
 tags:
   - Life
-  - knowledge
 ---
 
 ![20260110020124](./20260110020124.png)

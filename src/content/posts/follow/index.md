@@ -1,8 +1,8 @@
 ---
 title: follow介绍
 pubDate: 2025-02-11
-categories: ['amusement']
-tags: ['Tools', 'RSS', 'follow']
+categories: ['life']
+tags: ['Life']
 description: '一个可以打破信息茧房的工具'
 banner: "./cover.png"
 slug: follow
