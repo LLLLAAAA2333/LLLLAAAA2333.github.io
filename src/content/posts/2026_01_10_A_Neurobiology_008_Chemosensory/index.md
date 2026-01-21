@@ -52,7 +52,6 @@ tags:
 头部外伤若震裂筛板，可能剪断脆弱的嗅觉轴突导致 **Anosmia (失嗅症)**。此外，除了普通气味，某些生物还通过犁鼻器（Vomeronasal organ）探测 **Pheromones (信息素)**，虽然人类的这一功能高度退化，但气味对情绪和周期的影响依然存在。
 ![../../99_Meta/Attachments/SavedPictures/Neuroscience_Exploring_the_Brain_37.webp](./Neuroscience_Exploring_the_Brain_37.webp)
 
-[[60_Archive/01_Lesson/基础神经科学/Neuroscience_Exploring_the_Brain_(2015).pdf#page=322&rect=76,156,638,377|Neuroscience_Exploring_the_Brain_(2015), p.278]]
 ### Olfactory Transduction Mechanisms
 嗅觉转导几乎完全依赖于 **cAMP** 第二信使通路。
 1.  气味分子（Odorants）溶解于黏液并结合受体。
@@ -64,7 +63,7 @@ tags:
 
 ![500](./202601131125.webp)
 如果嗅觉受体细胞产生的电位足够大，超过胞体产生动作电位的阈值，则产生的spike可以通过嗅神经传导到中枢神经系统，最终引起嗅觉。
-![500](./Neuroscience_Exploring_the_Brain_(2015) 37.webp)
+![500](./Neuroscience_Exploring_the_Brain_371.webp)
 ### Coding and Central Processing
 Linda Buck 和 Richard Axel 的研究揭示了哺乳动物拥有庞大的嗅觉受体基因家族（人类约有 350 种表达基因）。遵循 **"One Cell, One Receptor"** 原则，每个受体细胞通常仅表达一种受体蛋白。
 
@@ -72,7 +71,8 @@ Linda Buck 和 Richard Axel 的研究揭示了哺乳动物拥有庞大的嗅觉�
 2.  **Central Pathways**: 嗅觉是唯一不需要先经过丘脑换元、直接投射到皮层的感觉。
     -   **Pathway A**: 嗅球 -> 嗅结节 -> 丘脑 **MD Nucleus** -> **Orbitofrontal Cortex** (介导意识感知)。
     -   **Pathway B**: 嗅球 -> 直接投射到 **Piriform Cortex**（梨状皮层）和边缘系统（杏仁核等），这解释了为什么气味能强烈唤起情感与记忆。
-![99_Meta/Attachments/SavedPictures/Neuroscience_Exploring_the_Brain_(2015) 38.webp](./Neuroscience_Exploring_the_Brain_(2015) 38.webp)
+
+![../../99_Meta/Attachments/SavedPictures/Neuroscience_Exploring_the_Brain_38.webp](./Neuroscience_Exploring_the_Brain_38.webp)
 ### Spatial and Temporal Representations
 嗅觉解码依赖三种策略：
 -   **Population Coding**: 即使单细胞是广谱的，成千上万个细胞的组合提供了精确的方向。
