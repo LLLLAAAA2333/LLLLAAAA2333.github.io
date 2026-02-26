@@ -3,6 +3,8 @@ title: Obsidian Sync with Todoist
 pubDate: 2026-02-26
 categories:
   - Obsidian_skill
+tags:
+  - Obsidian
 ---
 
 ![../../99_Meta/Attachments/SavedPictures/20260226230134.png](./20260226230134.png)
