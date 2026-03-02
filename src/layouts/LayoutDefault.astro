@@ -53,6 +53,57 @@ const dark = themeConfig.appearance.theme === 'dark'
         document.documentElement.classList.remove('animation-prepared')
         document.removeEventListener('animationend', removeAnimation, false)
       }
+
+      const main = document.querySelector('main.transition-swup-main')
+      const isLargeLayout = () => window.matchMedia('(min-width: 1024px)').matches
+
+      const getTargetElement = (hash: string): HTMLElement | null => {
+        if (!hash || hash === '#') return null
+        const id = decodeURIComponent(hash.replace('#', ''))
+        return document.getElementById(id)
+      }
+
+      const scrollToTarget = (
+        hash: string,
+        behavior: ScrollBehavior = 'smooth',
+      ): boolean => {
+        if (!main || !isLargeLayout()) return false
+        const target = getTargetElement(hash)
+        if (!target || !main.contains(target)) return false
+
+        const mainRect = main.getBoundingClientRect()
+        const targetRect = target.getBoundingClientRect()
+        const offset = targetRect.top - mainRect.top + main.scrollTop
+        main.scrollTo({ top: offset, behavior })
+        return true
+      }
+
+      document.addEventListener('click', (event) => {
+        if (!(event.target instanceof Element)) return
+        const link = event.target.closest('a[href^="#"]')
+        if (!link) return
+        if (!(link instanceof HTMLAnchorElement)) return
+
+        const url = new URL(link.href, window.location.href)
+        if (url.pathname !== window.location.pathname) return
+
+        if (scrollToTarget(url.hash, 'smooth')) {
+          event.preventDefault()
+          history.pushState(null, '', url.hash)
+        }
+      })
+
+      const syncHashScroll = () => {
+        const hash = window.location.hash
+        if (!hash || hash === '#') return
+        if (scrollToTarget(hash, 'auto')) return
+        const target = getTargetElement(hash)
+        target?.scrollIntoView({ behavior: 'auto', block: 'start' })
+      }
+
+      window.addEventListener('hashchange', syncHashScroll)
+      window.addEventListener('load', syncHashScroll)
+      document.addEventListener('swup:page:view', syncHashScroll)
     </script>
     <style>
       /* 页面首次加载动画 */
