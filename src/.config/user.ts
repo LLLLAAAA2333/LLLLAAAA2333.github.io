@@ -1,6 +1,9 @@
 import type { UserConfig } from '~/types'
 
 export const userConfig: Partial<UserConfig> = {
+  seo: {
+    googleSiteVerification: 'google5c45bb781c1eb3ab.html',
+  },
   site: {
     // 在这里添加您的导航链接
     navLinks: [

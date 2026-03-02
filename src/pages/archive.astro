@@ -1,8 +1,11 @@
 ---
+import SiteSeo from '~/components/SiteSeo.astro'
+import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import type { Post } from '~/types'
-import { formatDate, getPosts } from '~/utils'
+import { formatDate, getPostCanonicalPath, getPosts } from '~/utils'
 
+const { translate: t } = Astro.locals
 const posts = await getPosts(true)
 
 const yearMap = getYearMap(posts)
@@ -27,13 +30,20 @@ function getYearMap(posts: Post[]) {
 function getListItem(post: Post): ListItem {
   return {
     title: post.data.title,
-    href: `/posts/${post.id}/`,
+    href: getPostCanonicalPath(post),
     date: formatDate(post.data.pubDate, 'MM-DD'),
   }
 }
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={t('Archive')}
+    desc={themeConfig.site.description}
+    canonical="/archive/"
+    type="website"
+  />
   <div flex="~ col gap-4">
     {
       yearMap.map(([year, posts]) => (

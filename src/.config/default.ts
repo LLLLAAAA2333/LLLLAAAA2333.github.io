@@ -65,6 +65,7 @@ export const defaultConfig: ThemeConfig = {
   },
   seo: {
     twitter: '@moeyua13',
+    googleSiteVerification: '',
     meta: [],
     link: [],
   },

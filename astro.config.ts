@@ -7,7 +7,6 @@ import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import UnoCSS from 'unocss/astro'
 import devtoolsJson from 'vite-plugin-devtools-json'
-import { themeConfig } from './src/.config'
 
 // https://astro.build/config
 export default defineConfig({
@@ -36,7 +35,7 @@ export default defineConfig({
   integrations: [
     UnoCSS({ injectReset: true }),
     mdx({}),
-    robotsTxt(),
+    robotsTxt({ host: true }),
     sitemap(),
     swup({
       theme: false,

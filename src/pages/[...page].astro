@@ -2,6 +2,7 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { themeConfig } from '~/.config'
 import Pagination from '~/components/Pagination.astro'
+import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import LayoutPost from '~/layouts/LayoutPost.astro'
 import { getPostDescription, getPosts } from '~/utils'
@@ -24,6 +25,13 @@ const { page } = Astro.props
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={page.currentPage === 1 ? themeConfig.site.title : `${themeConfig.site.title} - Page ${page.currentPage}`}
+    desc={themeConfig.site.description}
+    canonical={page.url.current}
+    type="website"
+  />
   <section contain-layout flex="~ col gap-7.5">
     {
       page.data.map((post) => (

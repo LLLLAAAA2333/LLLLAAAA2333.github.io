@@ -1,4 +1,6 @@
 ---
+import SiteSeo from '~/components/SiteSeo.astro'
+import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import { getPosts } from '~/utils/index'
 
@@ -6,16 +8,23 @@ const { translate: t } = Astro.locals
 const allPosts = await getPosts()
 const allTags = new Map<string, number>()
 
-allPosts.forEach(post => {
-  post.data.tags?.forEach(tag => {
-    allTags.set(tag, (allTags.get(tag) ?? 0) + 1);
-  });
-});
+allPosts.forEach((post) => {
+  post.data.tags?.forEach((tag) => {
+    allTags.set(tag, (allTags.get(tag) ?? 0) + 1)
+  })
+})
 
-const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1] - a[1]);
+const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1] - a[1])
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={t('Tags')}
+    desc={themeConfig.site.description}
+    canonical="/tags/"
+    type="website"
+  />
   <section>
     <h2 class="post-title">{t('Tags')}</h2>
     <ul class="pl-6" flex="~ col gap-4">

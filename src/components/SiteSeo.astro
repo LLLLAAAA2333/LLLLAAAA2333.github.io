@@ -7,6 +7,12 @@ interface Props {
   title?: string
   desc?: string
   banner?: ImageMetadata
+  canonical?: string
+  publishedTime?: Date
+  modifiedTime?: Date
+  type?: 'website' | 'article'
+  tags?: string[]
+  section?: string
 }
 
 const props = Astro.props
@@ -16,13 +22,22 @@ const configSite = themeConfig.site
 
 const title = props.title ?? configSite.title
 const desc = props.desc ?? configSite.description
-const canonical = configSite.website
+const canonical = new URL(props.canonical ?? Astro.url.pathname, configSite.website).toString()
+const publishedTime = props.publishedTime
+const modifiedTime = props.modifiedTime
+const type = props.type ?? 'website'
+const tags = props.tags
+const section = props.section
 const twitter = configSEO.twitter
 const rss = new URL('/atom.xml', Astro.site).toString()
 const optimizedImage = await getOptimizedImageURL()
+const structuredData = buildStructuredData()
+const robotsExtras = 'max-snippet:-1, max-image-preview:large, max-video-preview:-1'
+const robotsContent = `index, follow, ${robotsExtras}`
 
 const seoLinks = [
   { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
+  { rel: 'canonical', href: canonical },
   {
     rel: 'alternate',
     type: 'application/rss+xml',
@@ -35,6 +50,12 @@ const seoLinks = [
 const seoMeta = [
   { name: 'viewport', content: 'width=device-width' },
   { name: 'generator', content: Astro.generator },
+  ...(
+    configSEO.googleSiteVerification
+      ? [{ name: 'google-site-verification', content: configSEO.googleSiteVerification }]
+      : []
+  ),
+  { name: 'robots', content: robotsContent },
   { name: 'twitter:image:src', content: optimizedImage },
   { name: 'twitter:image:alt', content: desc },
   { name: 'twitter:creator', content: twitter },
@@ -48,10 +69,74 @@ const seoMeta = [
 const openGraph: SEOProps['openGraph'] = {
   basic: {
     title: title,
-    type: 'article',
+    type: type,
     image: optimizedImage,
     url: canonical,
   },
+  optional: {
+    description: desc,
+    siteName: configSite.title,
+  },
+  article: type === 'article'
+    ? {
+        publishedTime: publishedTime?.toISOString(),
+        modifiedTime: modifiedTime?.toISOString(),
+        authors: configSite.author ? [configSite.author] : undefined,
+        section,
+        tags,
+      }
+    : undefined,
+}
+
+
+function buildStructuredData() {
+  if (type !== 'article') {
+    if (Astro.url.pathname === '/') {
+      return {
+        '@context': 'https://schema.org',
+        '@type': 'WebSite',
+        name: configSite.title,
+        url: configSite.website,
+        description: configSite.description,
+        inLanguage: themeConfig.appearance.locale,
+      }
+    }
+
+    return {
+      '@context': 'https://schema.org',
+      '@type': 'WebPage',
+      name: title,
+      url: canonical,
+      description: desc,
+      inLanguage: themeConfig.appearance.locale,
+      isPartOf: {
+        '@type': 'WebSite',
+        name: configSite.title,
+        url: configSite.website,
+      },
+    }
+  }
+
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: title,
+    description: desc,
+    image: optimizedImage,
+    datePublished: publishedTime?.toISOString(),
+    dateModified: modifiedTime?.toISOString(),
+    inLanguage: themeConfig.appearance.locale,
+    author: configSite.author
+      ? {
+          '@type': 'Person',
+          name: configSite.author,
+        }
+      : undefined,
+    mainEntityOfPage: {
+      '@type': 'WebPage',
+      '@id': canonical,
+    },
+  }
 }
 
 async function getOptimizedImageURL() {
@@ -60,10 +145,21 @@ async function getOptimizedImageURL() {
 }
 ---
 
+{structuredData && (
+  <script
+    type="application/ld+json"
+    is:inline
+    set:html={JSON.stringify(structuredData)}
+  />
+)}
+
 <SEO
   charset="utf-8"
   title={title}
   description={desc}
+  canonical={canonical}
+  noindex={false}
+  nofollow={false}
   extend={{ link: seoLinks, meta: seoMeta }}
   openGraph={openGraph}
 />

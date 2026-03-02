@@ -51,6 +51,7 @@ export interface ConfigSEO {
   twitter: string
   meta: Partial<Meta>[]
   link: Partial<Link>[]
+  googleSiteVerification?: string
 }
 
 export interface ConfigComment {

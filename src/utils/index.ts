@@ -64,3 +64,7 @@ export function getPathFromCategory(
   const mappingPath = category_map.find(l => l.name === category)
   return mappingPath ? mappingPath.path : category
 }
+
+export function getPostCanonicalPath(post: Post) {
+  return `/posts/${post.data.slug ?? post.id}`
+}

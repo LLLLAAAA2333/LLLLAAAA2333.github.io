@@ -1,8 +1,9 @@
 ---
 import { themeConfig } from '~/.config'
+import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import type { Post } from '~/types'
-import { formatDate, getCategories, getPathFromCategory } from '~/utils'
+import { formatDate, getCategories, getPathFromCategory, getPostCanonicalPath } from '~/utils'
 
 export async function getStaticPaths() {
   const categoryMap = await getCategories()
@@ -20,7 +21,7 @@ const { posts, name } = Astro.props
 function getListItems(posts: Post[]) {
   const result = posts.map((post) => ({
     title: post.data.title,
-    href: `/posts/${post.id}/`,
+    href: getPostCanonicalPath(post),
     date: formatDate(post.data.pubDate),
   }))
   return result
@@ -28,6 +29,13 @@ function getListItems(posts: Post[]) {
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={`Category: ${name}`}
+    desc={themeConfig.site.description}
+    canonical={`/categories/${getPathFromCategory(name, themeConfig.site.categoryMap)}/`}
+    type="website"
+  />
   <section>
     <h2 class="post-title"># {name}</h2>
     <ul class="pl-6 py-3" flex="~ col gap-4">

@@ -6,7 +6,7 @@ import Pagination from '~/components/Pagination.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import LayoutPost from '~/layouts/LayoutPost.astro'
-import { getPosts } from '~/utils'
+import { getPostCanonicalPath, getPosts } from '~/utils'
 import { render } from 'astro:content'
 
 export const getStaticPaths = (async () => {
@@ -38,7 +38,18 @@ function getUrl(id: string) {
 <LayoutDefault>
   <TableOfContents slot="toc" headings={headings} />
 
-  <SiteSeo slot="seo" title={entry.data.title} desc={entry.data.description} banner={entry.data.banner} />
+  <SiteSeo
+    slot="seo"
+    title={entry.data.title}
+    desc={entry.data.description}
+    banner={entry.data.banner}
+    canonical={`${getPostCanonicalPath(entry)}/`}
+    publishedTime={entry.data.pubDate}
+    modifiedTime={entry.data.modDate ?? entry.data.pubDate}
+    type="article"
+    tags={entry.data.tags}
+    section={entry.data.categories?.[0]}
+  />
   {
     entry.data.banner && (
       <div class="mb-8">

@@ -1,6 +1,6 @@
 ---
 import type { Post } from '~/types'
-import { formatDate } from '~/utils'
+import { formatDate, getPostCanonicalPath } from '~/utils'
 import PostCategory from './PostCategory.astro'
 
 interface Props {
@@ -16,7 +16,7 @@ const tagList = post.data.tags ?? []
 
 <header flex="~ col gap-2">
   <h1 class="post-title">
-    <a class="not-prose" href={`/posts/${post.id}/`}>{post.data.title}</a>
+    <a class="not-prose" href={getPostCanonicalPath(post)}>{post.data.title}</a>
   </h1>
   <div class="text-3.5 flex flex-wrap items-center gap-x-2">
     <span>{t(post.data.modDate ? 'updated_at' : 'posted_at')}</span>
@@ -24,7 +24,7 @@ const tagList = post.data.tags ?? []
     {categoryList.map((category) => <PostCategory category={category} />)}
 
     {tagList.length > 0 && <span class="text-gray-400">•</span>}
-    {tagList.map((tag, index) => (
+    {tagList.map((tag) => (
       <a href={`/tags/${tag}`} class="text-sm">
         #{tag}
       </a>

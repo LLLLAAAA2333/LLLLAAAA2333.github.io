@@ -1,5 +1,6 @@
 ---
 import { themeConfig } from '~/.config'
+import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import { getCategories, getPathFromCategory } from '~/utils/index'
 
@@ -18,6 +19,13 @@ function getListFromMap(map: typeof categoryMap) {
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={t('Categories')}
+    desc={themeConfig.site.description}
+    canonical="/categories/"
+    type="website"
+  />
   <section>
     <h2 class="post-title">{t('Categories')}</h2>
     <ul class="pl-6" flex="~ col gap-4">

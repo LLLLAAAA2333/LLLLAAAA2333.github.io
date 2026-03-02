@@ -1,39 +1,47 @@
 ---
 // src/pages/tags/[...tag].astro
+import SiteSeo from '~/components/SiteSeo.astro'
+import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import type { Post } from '~/types'
-import { formatDate, getPosts } from '~/utils'
+import { formatDate, getPostCanonicalPath, getPosts } from '~/utils'
 
 export async function getStaticPaths() {
-  const allPosts = await getPosts();
-  const allTags = new Set<string>();
-  allPosts.forEach(post => {
-    post.data.tags?.forEach(tag => allTags.add(tag));
-  });
+  const allPosts = await getPosts()
+  const allTags = new Set<string>()
+  allPosts.forEach((post) => {
+    post.data.tags?.forEach(tag => allTags.add(tag))
+  })
 
-  return Array.from(allTags).map(tag => {
-    const posts = allPosts.filter(p => p.data.tags?.includes(tag));
+  return Array.from(allTags).map((tag) => {
+    const posts = allPosts.filter(p => p.data.tags?.includes(tag))
     return {
       params: { tag },
       props: { posts, name: tag },
-    };
-  });
+    }
+  })
 }
 
-const { posts, name } = Astro.props;
-const { translate: t } = Astro.locals;
+const { posts, name } = Astro.props
 
 function getListItems(posts: Post[]) {
   const result = posts.map((post) => ({
     title: post.data.title,
-    href: `/posts/${post.id}/`,
+    href: getPostCanonicalPath(post),
     date: formatDate(post.data.pubDate),
-  }));
-  return result;
+  }))
+  return result
 }
 ---
 
 <LayoutDefault>
+  <SiteSeo
+    slot="seo"
+    title={`Tag: ${name}`}
+    desc={themeConfig.site.description}
+    canonical={`/tags/${name}/`}
+    type="website"
+  />
   <section>
     <h2 class="post-title"># {name}</h2>
     <ul class="pl-6 py-3" flex="~ col gap-4">
