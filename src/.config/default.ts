@@ -6,7 +6,7 @@ import type { ThemeConfig } from '~/types'
 export const defaultConfig: ThemeConfig = {
   site: {
     title: 'LLAA Home',
-    subtitle: '无目的读书是散步而不是学习',
+    subtitle: 'Beautiful things don\'t ask for Attention',
     author: '',
     description: '',
     website: 'https://llllaaaa2333.github.io/',
