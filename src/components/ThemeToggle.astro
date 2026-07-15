@@ -1,0 +1,54 @@
+<button
+  id="theme-toggle"
+  type="button"
+  class="not-underline-hover inline-flex h-6 w-6 items-center justify-center opacity-75 transition-opacity hover:opacity-100 focus-visible:(outline-2 outline-offset-3 outline-primary)"
+  aria-label="切换深色或浅色模式"
+  aria-pressed="false"
+  title="切换深色模式"
+>
+  <span class="i-mdi-weather-night h-5 w-5 dark:hidden" aria-hidden="true"></span>
+  <span class="i-mdi-weather-sunny hidden h-5 w-5 dark:block" aria-hidden="true"></span>
+</button>
+
+<script is:inline data-swup-ignore-script>
+  void (() => {
+    const THEME_PREFERENCE_KEY = 'theme-preference'
+    const toggle = document.querySelector('#theme-toggle')
+
+    function syncToggle() {
+      const isDark = document.documentElement.classList.contains('dark')
+      toggle?.setAttribute('aria-pressed', String(isDark))
+      const label = isDark ? '切换浅色模式' : '切换深色模式'
+      toggle?.setAttribute('aria-label', label)
+      toggle?.setAttribute('title', label)
+    }
+
+    function setTheme(theme) {
+      try {
+        localStorage.setItem(THEME_PREFERENCE_KEY, theme)
+        // eslint-disable-next-line style/brace-style
+      } catch {
+        // Theme switching still works when browser storage is unavailable.
+      }
+
+      window.dispatchEvent(new CustomEvent('theme-request', { detail: { theme } }))
+    }
+
+    toggle?.addEventListener('click', () => {
+      const nextTheme = document.documentElement.classList.contains('dark') ? 'light' : 'dark'
+      setTheme(nextTheme)
+    })
+
+    window.addEventListener('themechange', syncToggle)
+    window.addEventListener('storage', (event) => {
+      if (event.key !== THEME_PREFERENCE_KEY || !event.newValue) {
+        return
+      }
+      if (event.newValue === 'light' || event.newValue === 'dark') {
+        window.dispatchEvent(new CustomEvent('theme-request', { detail: { theme: event.newValue } }))
+      }
+    })
+
+    syncToggle()
+  })()
+</script>

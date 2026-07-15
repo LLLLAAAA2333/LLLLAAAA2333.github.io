@@ -30,4 +30,21 @@ const giscus = comment.giscus
 
 <script>
   import 'giscus'
+
+  const GISCUS_THEME_LISTENER = Symbol.for('giscus-theme-listener')
+  const themeWindow = window as unknown as Window & Record<symbol, boolean | undefined>
+
+  function syncGiscusTheme() {
+    const widget = document.querySelector('giscus-widget')
+    if (widget) {
+      widget.theme = document.documentElement.classList.contains('dark') ? 'dark' : 'light'
+    }
+  }
+
+  if (!themeWindow[GISCUS_THEME_LISTENER]) {
+    themeWindow[GISCUS_THEME_LISTENER] = true
+    window.addEventListener('themechange', syncGiscusTheme)
+  }
+
+  syncGiscusTheme()
 </script>

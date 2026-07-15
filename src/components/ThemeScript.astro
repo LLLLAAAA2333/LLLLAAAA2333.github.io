@@ -4,26 +4,47 @@ import { themeConfig } from '~/.config'
 const theme = themeConfig.appearance.theme
 ---
 
-<script is:inline define:vars={{ theme }}>
-  function updateTheme(theme) {
-    // Check if theme is system
-    if (theme === 'system') {
-      // Check OS preference
-      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-      document.documentElement.classList.toggle('dark', prefersDark)
-      return
-    }
-    // Set theme directly
-    document.documentElement.classList.toggle('dark', theme === 'dark')
-  }
+<script is:inline data-swup-ignore-script data-configured-theme={theme}>
+  void (() => {
+    const THEME_PREFERENCE_KEY = 'theme-preference'
+    const systemThemeQuery = window.matchMedia('(prefers-color-scheme: dark)')
+    const configuredTheme = document.currentScript?.getAttribute('data-configured-theme') ?? 'system'
 
-  // Initial theme setup
-  updateTheme(theme)
-
-  // Listen for OS theme changes
-  window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', (e) => {
-    if (theme === 'system') {
-      document.documentElement.classList.toggle('dark', e.matches)
+    function isTheme(value) {
+      return value === 'light' || value === 'dark' || value === 'system'
     }
-  })
+
+    function getStoredTheme() {
+      try {
+        const storedTheme = localStorage.getItem(THEME_PREFERENCE_KEY)
+        return isTheme(storedTheme) ? storedTheme : null
+        // eslint-disable-next-line style/brace-style
+      } catch {
+        return null
+      }
+    }
+
+    function updateTheme(selectedTheme) {
+      const resolvedTheme = selectedTheme === 'system' ? (systemThemeQuery.matches ? 'dark' : 'light') : selectedTheme
+
+      document.documentElement.classList.toggle('dark', resolvedTheme === 'dark')
+      document.documentElement.style.colorScheme = resolvedTheme
+      window.dispatchEvent(new CustomEvent('themechange', { detail: { theme: resolvedTheme } }))
+    }
+
+    updateTheme(getStoredTheme() ?? configuredTheme)
+
+    systemThemeQuery.addEventListener('change', () => {
+      if (!getStoredTheme() && configuredTheme === 'system') {
+        updateTheme('system')
+      }
+    })
+
+    window.addEventListener('theme-request', (event) => {
+      const selectedTheme = event instanceof CustomEvent ? event.detail?.theme : null
+      if (isTheme(selectedTheme)) {
+        updateTheme(selectedTheme)
+      }
+    })
+  })()
 </script>
