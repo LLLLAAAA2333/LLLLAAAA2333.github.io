@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_011_Auditory
+title: "The Auditory and Vestibular Systems: Sensing Sound and Balance"
 pubDate: 2026-01-24
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# The Auditory and Vestibular Systems: Sensing Sound and Balance
 
 听觉（Audition）与平衡觉（Vestibular sense）构成了神经系统中最精密且反应最迅速的机械感知系统。这两个系统在解剖演化上具有共同的起源，均位于内耳的迷路结构（Labyrinth）中，并共享了极其相似的机械动力学转化原理：通过**Hair Cells (毛细胞)** 将微小的压力波动或位移转化为电转导信号。听觉系统使我们能够探测并解析空气介质中的压力波，而前庭系统则负责监测重力、线性加速度以及头部的三维旋转，共同维系着生物体的空间方位感与动态平衡。
 

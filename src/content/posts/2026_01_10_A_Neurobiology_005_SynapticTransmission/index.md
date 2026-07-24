@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_005_SynapticTransmission
+title: 突触传递 (Synaptic Transmission)
 pubDate: 2026-01-10
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# 突触传递 (Synaptic Transmission)
 
 突触（**Synapses**）是神经系统执行信息传递、整合与处理的核心特化结构。这一学术术语最早由 **Charles Sherrington** 提出，旨在界定神经元之间专门化的物理接触点。**Synaptic Transmission** 描述了生物电信号或化学信号跨越细胞边界，从突触前神经元向突触后细胞（包括其他神经元、肌肉纤维或腺细胞）转移的过程。
 

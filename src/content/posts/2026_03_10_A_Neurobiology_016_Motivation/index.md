@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_016_Motivation
+title: Motivation（动机）
 pubDate: 2026-03-10
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# Motivation（动机）
 
 > 动机并不是单一的“想做某事”，而是神经系统把内在需求、稳态偏离、奖赏相关的追逐驱动力与行为输出连接起来的过程：最底层可表现为感觉刺激触发的无意识反射，最高层则可表现为由 **frontal lobe（额叶）** 神经元启动的有意识运动。
 

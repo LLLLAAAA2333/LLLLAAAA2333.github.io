@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_003_MembranePotential
+title: Resting Membrane Potential
 pubDate: 2025-12-29
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# Resting Membrane Potential
 
 > 可兴奋的细胞不产生冲动时，称为静息状态；处于静息状态的神经元膜内相对于膜外是负电荷，跨膜电荷存在着差异称为resting membrane potential
 
@@ -56,7 +54,7 @@ Na<sup>+</sup> Ca<sup>2+</sup> Cl<sup>-</sup>: out>in
 | $Ca^{2+}$ | 10,000 : 1     | +123 mV              |
 | $Cl^-$    | 11.5 : 1       | -65 mV               |
 
-# GHK Equation
+## GHK Equation
 
 Nernst方程只考虑了单个离子如何流动，但细胞膜的离子是复杂的，所以GHK方程在Nernst方程基础上进行了拓展。
 

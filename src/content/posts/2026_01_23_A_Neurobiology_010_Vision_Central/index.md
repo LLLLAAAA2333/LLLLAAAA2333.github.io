@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_010_Vision_Central
+title: "The Central Visual System: From Thalamus to Visual Perception"
 pubDate: 2026-01-23
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# The Central Visual System: From Thalamus to Visual Perception
 
 ## INTRODUCTION
 

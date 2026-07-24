@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_015_ChemicalControl
+title: Chemical Control of the Brain and Behavior
 pubDate: 2026-02-28
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# Chemical Control of the Brain and Behavior
 
 ## Introduction
 

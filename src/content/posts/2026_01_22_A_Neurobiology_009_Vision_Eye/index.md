@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_009_Vision_Eye
+title: "The Eye and Vision: From Light to Neural Signal"
 pubDate: 2026-01-22
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# The Eye and Vision: From Light to Neural Signal
 
 ## INTRODUCTION
 

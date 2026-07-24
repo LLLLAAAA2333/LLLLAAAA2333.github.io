@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_008_Chemosensory
+title: "The Chemical Senses: Gustation and Olfaction"
 pubDate: 2026-01-10
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# The Chemical Senses: Gustation and Olfaction
 
 我们的化学感官——**Gustation (味觉)** 和 **Olfaction (嗅觉)**——是进化上最古老的感觉系统。它们的最基本任务是探测环境中的化学物质，这对于生存至关重要，能够帮助生物区分营养源（如糖类）与潜在毒素（如许多生物碱），并引导寻找配偶等社会行为。虽然在较低处理水平上味觉与嗅觉是相互独立的系统，但神经系统通过整合这两者的信息，才能产生我们日常体验中的“风味 (Flavor)”。这种信息的融合通常发生在皮层的高级处理阶段。
 

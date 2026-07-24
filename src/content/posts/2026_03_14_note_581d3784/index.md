@@ -7,7 +7,7 @@ tags:
   - Life
 ---
 
-# Windows to Mac 迁移指南
+## Windows to Mac 迁移指南
 
 > 核心适应点：**Command (⌘)** 键在 macOS 中很大程度上代替了 Windows 中的 Ctrl 键。
 

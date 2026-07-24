@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_004_ActionPotential
+title: Action Potential (动作电位)
 pubDate: 2026-01-10
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# Action Potential (动作电位)
 
 > 动作电位（Action Potential, AP），亦被称为神经冲动（Nerve Impulse）或发放（Discharge），是神经系统进行远程信息传递的高速公路。它是一种“全或无”（All-or-None）的电信号，其产生过程标志着神经元从静息平衡态向兴奋状态的剧烈转变。
 

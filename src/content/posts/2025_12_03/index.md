@@ -1,5 +1,5 @@
 ---
-title: A_Neurobiology_001_History
+title: 神经科学的历史
 pubDate: 2025-12-03
 categories:
   - neuroscience
@@ -9,7 +9,6 @@ tags:
 
 > Neuroscience is the study of the nervous system – from structure to function, development to [[001_degeneration|degeneration]], in health and in disease.
 
-# 神经科学的历史
 ```timeline
 [line-3, body-2] 
 + 古希腊 
@@ -56,4 +55,3 @@ tags:
 | **2004** | Axel & Buck                      | 嗅觉受体 (GPCRs) 和嗅觉系统组织                            |
 | **2014** | O'Keefe & Mosers                 | 大脑定位系统 (**Place cell & Grid cell**)             |
 | **2021** | Julius & Patapoutian             | 温度 (TRP) 和触觉 (Piezo) 受体                         |
-

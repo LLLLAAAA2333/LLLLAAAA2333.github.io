@@ -1,13 +1,11 @@
 ---
-title: A_Neurobiology_006_NeurotransmitterSystems
+title: Neurotransmitter Systems
 pubDate: 2026-01-10
 categories:
   - neuroscience
 tags:
   - Neuroscience
 ---
-
-# Neurotransmitter Systems
 
 神经递质系统是脑内化学信号传递的核心，通常根据其释放的特定化学物质，以后缀 "-ergic" 命名（例如 Cholinergic）。这一命名法由英国药理学家 Henry Dale 引入，旨在系统化地描述产生并释放特定神经递质的神经元及其相关的分子机制。
 

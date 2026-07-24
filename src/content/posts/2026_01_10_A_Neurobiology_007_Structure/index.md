@@ -1,5 +1,5 @@
 ---
-title: A_Neurobiology_007_Structure
+title: Brain Structure
 pubDate: 2026-01-10
 categories:
   - neuroscience
@@ -7,7 +7,6 @@ tags:
   - Neuroscience
 ---
 
-# Brain Structure
 > 哺乳动物的大脑虽然形态各异，而在神经系统的组织结构上共享一些普遍特征。理解这些宏观和微观结构是深入研究神经功能的基础。
 
 ## Anatomical References (解剖学术语)
