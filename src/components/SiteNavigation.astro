@@ -1,27 +1,43 @@
 ---
 import { themeConfig } from '~/.config'
+import SearchDialog from '~/components/SearchDialog.astro'
+import SiteFooter from '~/components/SiteFooter.astro'
 import ThemeToggle from '~/components/ThemeToggle.astro'
 
 const { navLinks, socialLinks, author, description } = themeConfig.site
 const { translate: t } = Astro.locals
 ---
 
-<div class="text-center mb-8">
-  <img src="/hornet.png" alt={author} class="w-24 h-24 mx-auto rounded-full mb-4 shadow-lg" />
-  <h2 class="text-xl font-bold">{author}</h2>
-  <p class="text-sm mt-2">{description}</p>
+<div class="mb-7 w-full border-b border-[var(--color-border)] pb-6 text-center font-ui">
+  <!-- deslop-ignore-next-line 19 -->
+  <img src="/hornet.png" alt={author || '站点头像'} class="mx-auto mb-3 h-24 w-24 rounded-full shadow-lg" />
+  {author && <h2 class="m-0 text-xl font-bold">{author}</h2>}
+  {description && <p class="mb-0 mt-2 text-sm">{description}</p>}
+  <footer class="mt-3" aria-label="站点版权信息">
+    <SiteFooter />
+  </footer>
 </div>
-<nav class="text-center font-bold" flex="~ col gap-4">
+<nav class="text-center font-bold font-ui" flex="~ col gap-4">
   <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center">
     {
       navLinks.map((nav) => (
         <li>
-          <a class="" href={nav.href}>
+          <a
+            href={nav.href}
+            aria-current={
+              Astro.url.pathname === nav.href || (nav.href !== '/' && Astro.url.pathname.startsWith(nav.href))
+                ? 'page'
+                : undefined
+            }
+          >
             {t(nav.name)}
           </a>
         </li>
       ))
     }
+    <li>
+      <SearchDialog />
+    </li>
   </ul>
   <ul flex="~ row gap-1 justify-center items-center">
     {

@@ -1,4 +1,4 @@
-import type { Post } from '~/types'
+import type { Post, PostSummary } from '~/types'
 import { getCollection } from 'astro:content'
 import dayjs from 'dayjs'
 import MarkdownIt from 'markdown-it'
@@ -19,6 +19,21 @@ export async function getCategories() {
   }
 
   return categories
+}
+
+export async function getTags() {
+  const posts = await getPosts()
+  const tags = new Map<string, Post[]>()
+
+  for (const post of posts) {
+    for (const tag of post.data.tags ?? []) {
+      const taggedPosts = tags.get(tag) ?? []
+      taggedPosts.push(post)
+      tags.set(tag, taggedPosts)
+    }
+  }
+
+  return tags
 }
 
 export async function getPosts(isArchivePage = false) {
@@ -43,14 +58,46 @@ export async function getPosts(isArchivePage = false) {
 }
 
 const parser = new MarkdownIt()
+const descriptionCache = new WeakMap<Post, string>()
+const summaryMetadataCache = new WeakMap<Post, Omit<PostSummary, 'description'>>()
+
 export function getPostDescription(post: Post) {
+  const cached = descriptionCache.get(post)
+  if (cached !== undefined) {
+    return cached
+  }
+
   if (post.data.description) {
+    descriptionCache.set(post, post.data.description)
     return post.data.description
   }
 
   const html = parser.render(post.body || '')
   const sanitized = sanitizeHtml(html, { allowedTags: [] })
-  return sanitized.slice(0, 400)
+  const description = sanitized.slice(0, 400)
+  descriptionCache.set(post, description)
+  return description
+}
+
+export function getPostSummary(post: Post, includeDescription = true): PostSummary {
+  let metadata = summaryMetadataCache.get(post)
+  if (!metadata) {
+    metadata = {
+      title: post.data.title,
+      href: getPostCanonicalPath(post),
+      pubDate: post.data.pubDate,
+      modDate: post.data.modDate,
+      categories: post.data.categories ?? [],
+      tags: post.data.tags ?? [],
+      pin: post.data.pin ?? false,
+    }
+    summaryMetadataCache.set(post, metadata)
+  }
+
+  return {
+    ...metadata,
+    description: includeDescription ? getPostDescription(post) : '',
+  }
 }
 
 export function formatDate(date: Date, format: string = 'YYYY-MM-DD') {

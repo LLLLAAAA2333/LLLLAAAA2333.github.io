@@ -2,19 +2,13 @@
 // src/pages/tags/[...tag].astro
 import SiteSeo from '~/components/SiteSeo.astro'
 import { themeConfig } from '~/.config'
+import PostSummaryItem from '~/components/PostSummaryItem.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import type { Post } from '~/types'
-import { formatDate, getPostCanonicalPath, getPosts } from '~/utils'
+import { getPostSummary, getTags } from '~/utils'
 
 export async function getStaticPaths() {
-  const allPosts = await getPosts()
-  const allTags = new Set<string>()
-  allPosts.forEach((post) => {
-    post.data.tags?.forEach(tag => allTags.add(tag))
-  })
-
-  return Array.from(allTags).map((tag) => {
-    const posts = allPosts.filter(p => p.data.tags?.includes(tag))
+  const tags = await getTags()
+  return Array.from(tags.entries()).map(([tag, posts]) => {
     return {
       params: { tag },
       props: { posts, name: tag },
@@ -23,15 +17,6 @@ export async function getStaticPaths() {
 }
 
 const { posts, name } = Astro.props
-
-function getListItems(posts: Post[]) {
-  const result = posts.map((post) => ({
-    title: post.data.title,
-    href: getPostCanonicalPath(post),
-    date: formatDate(post.data.pubDate),
-  }))
-  return result
-}
 ---
 
 <LayoutDefault>
@@ -42,19 +27,18 @@ function getListItems(posts: Post[]) {
     canonical={`/tags/${name}/`}
     type="website"
   />
-  <section>
-    <h2 class="post-title"># {name}</h2>
-    <ul class="pl-6 py-3" flex="~ col gap-4">
-      {
-        getListItems(posts).map(({ title, href, date }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}>{title}</a>
-            </h3>
-            <time>{date}</time>
-          </li>
-        ))
-      }
-    </ul>
+  <header class="mb-4 flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-4">
+    <h1 class="m-0 break-words text-7 font-bold font-ui"># {name}</h1>
+    <p class="m-0 shrink-0 text-3.5 c-[var(--color-muted)]">{posts.length} 篇文章</p>
+  </header>
+
+  <section aria-label={`${name} 标签文章`}>
+    {
+      posts.length === 0 ? (
+        <p class="c-[var(--color-muted)]">该标签暂无文章。</p>
+      ) : (
+        posts.map((post) => <PostSummaryItem post={getPostSummary(post)} />)
+      )
+    }
   </section>
 </LayoutDefault>

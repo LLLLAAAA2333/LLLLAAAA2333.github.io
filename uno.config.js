@@ -81,5 +81,7 @@ export default defineConfig({
     'i-mdi-check',
     'i-mdi-weather-night',
     'i-mdi-weather-sunny',
+    'i-mdi-magnify',
+    'i-mdi-close',
   ],
 })

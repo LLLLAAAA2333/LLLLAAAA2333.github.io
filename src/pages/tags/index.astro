@@ -2,40 +2,52 @@
 import SiteSeo from '~/components/SiteSeo.astro'
 import { themeConfig } from '~/.config'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import { getPosts } from '~/utils/index'
+import { getTags } from '~/utils/index'
 
 const { translate: t } = Astro.locals
-const allPosts = await getPosts()
-const allTags = new Map<string, number>()
-
-allPosts.forEach((post) => {
-  post.data.tags?.forEach((tag) => {
-    allTags.set(tag, (allTags.get(tag) ?? 0) + 1)
-  })
-})
-
-const sortedTags = Array.from(allTags.entries()).sort((a, b) => b[1] - a[1])
+const tags = await getTags()
+const sortedTags = Array.from(tags.entries()).sort(([, a], [, b]) => b.length - a.length)
+const maxCount = Math.max(...sortedTags.map(([, posts]) => posts.length), 1)
 ---
 
 <LayoutDefault>
-  <SiteSeo
-    slot="seo"
-    title={t('Tags')}
-    desc={themeConfig.site.description}
-    canonical="/tags/"
-    type="website"
-  />
-  <section>
-    <h2 class="post-title">{t('Tags')}</h2>
-    <ul class="pl-6" flex="~ col gap-4">
-      {sortedTags.map(([tag, count]) => (
-        <li>
-          <h3 class="post-title">
-            <a href={`/tags/${tag}`}># {tag}</a>
-          </h3>
-          <p>{t('tag_count', count)}</p>
-        </li>
-      ))}
-    </ul>
+  <SiteSeo slot="seo" title={t('Tags')} desc={themeConfig.site.description} canonical="/tags/" type="website" />
+  <header class="mb-8 flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-4">
+    <h1 class="m-0 text-7 font-bold font-ui">{t('Tags')}</h1>
+    <p class="m-0 shrink-0 text-3.5 c-[var(--color-muted)]">{sortedTags.length} 个标签</p>
+  </header>
+
+  <section aria-label="标签频谱">
+    {
+      sortedTags.length === 0 ? (
+        <p class="c-[var(--color-muted)]">尚无标签。</p>
+      ) : (
+        <ol class="m-0 flex list-none flex-col gap-3 p-0">
+          {sortedTags.map(([tag, posts]) => {
+            const strength = Math.max(12, Math.round((posts.length / maxCount) * 100))
+            return (
+              <li>
+                <a
+                  class="not-underline-hover grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2"
+                  href={`/tags/${tag}`}
+                  aria-label={`${tag}，${posts.length} 篇文章`}
+                >
+                  <span>
+                    <span class="block text-5.5 font-bold underline"># {tag}</span>
+                    <span class="mt-2 block h-1 bg-[var(--color-border)]">
+                      <span
+                        class="block h-full bg-primary transition-[width] duration-300"
+                        style={`width: ${strength}%`}
+                      />
+                    </span>
+                  </span>
+                  <span class="text-3.5 c-[var(--color-muted)]">{t('tag_count', posts.length)}</span>
+                </a>
+              </li>
+            )
+          })}
+        </ol>
+      )
+    }
   </section>
 </LayoutDefault>

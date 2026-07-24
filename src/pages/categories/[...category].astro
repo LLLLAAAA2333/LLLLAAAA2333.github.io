@@ -1,9 +1,9 @@
 ---
 import { themeConfig } from '~/.config'
+import PostSummaryItem from '~/components/PostSummaryItem.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import type { Post } from '~/types'
-import { formatDate, getCategories, getPathFromCategory, getPostCanonicalPath } from '~/utils'
+import { getCategories, getPathFromCategory, getPostSummary } from '~/utils'
 
 export async function getStaticPaths() {
   const categoryMap = await getCategories()
@@ -17,15 +17,6 @@ export async function getStaticPaths() {
 }
 
 const { posts, name } = Astro.props
-
-function getListItems(posts: Post[]) {
-  const result = posts.map((post) => ({
-    title: post.data.title,
-    href: getPostCanonicalPath(post),
-    date: formatDate(post.data.pubDate),
-  }))
-  return result
-}
 ---
 
 <LayoutDefault>
@@ -36,19 +27,18 @@ function getListItems(posts: Post[]) {
     canonical={`/categories/${getPathFromCategory(name, themeConfig.site.categoryMap)}/`}
     type="website"
   />
-  <section>
-    <h2 class="post-title"># {name}</h2>
-    <ul class="pl-6 py-3" flex="~ col gap-4">
-      {
-        getListItems(posts).map(({ title, href, date }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}>{title}</a>
-            </h3>
-            <time>{date}</time>
-          </li>
-        ))
-      }
-    </ul>
+  <header class="mb-4 flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-4">
+    <h1 class="m-0 break-words text-7 font-bold font-ui"># {name}</h1>
+    <p class="m-0 shrink-0 text-3.5 c-[var(--color-muted)]">{posts.length} 篇文章</p>
+  </header>
+
+  <section aria-label={`${name} 分类文章`}>
+    {
+      posts.length === 0 ? (
+        <p class="c-[var(--color-muted)]">该分类暂无文章。</p>
+      ) : (
+        posts.map((post) => <PostSummaryItem post={getPostSummary(post)} />)
+      )
+    }
   </section>
 </LayoutDefault>

@@ -1,0 +1,319 @@
+---
+const { translate: t } = Astro.locals
+---
+
+<button
+  id="search-trigger"
+  type="button"
+  class="not-underline-hover inline-flex items-center gap-1 border-0 bg-transparent p-0 font-bold font-ui c-inherit cursor-pointer"
+  aria-haspopup="dialog"
+  aria-controls="search-dialog"
+>
+  <span class="i-mdi-magnify h-4.5 w-4.5" aria-hidden="true"></span>
+  <span>{t('Search')}</span>
+  <kbd
+    class="hidden border border-[var(--color-border)] px-1.5 py-0.5 text-2.5 font-normal c-[var(--color-muted)] xl:inline"
+  >
+    ⌘K
+  </kbd>
+</button>
+
+<dialog
+  id="search-dialog"
+  class="search-dialog m-auto max-h-[82dvh] w-[min(42rem,calc(100vw-2rem))] border border-[var(--color-border)] bg-background p-0 text-left font-ui c-primary"
+  aria-labelledby="search-dialog-title"
+  data-loading={t('search_loading')}
+  data-empty={t('search_no_results')}
+  data-error={t('search_error')}
+  data-count={t('search_results', '%d')}
+  data-hint={t('search_hint')}
+>
+  <div class="flex max-h-[82dvh] min-h-[24rem] flex-col">
+    <header class="border-b border-[var(--color-border)] p-5">
+      <div class="mb-4 flex items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <h2 id="search-dialog-title" class="m-0 text-6 font-bold font-ui">
+            {t('Search')}
+          </h2>
+          <kbd class="border border-[var(--color-border)] px-1.5 py-0.5 text-2.5 font-normal c-[var(--color-muted)]">
+            Ctrl / ⌘ K
+          </kbd>
+        </div>
+        <button
+          id="search-close"
+          type="button"
+          class="not-underline-hover inline-flex h-9 w-9 items-center justify-center border border-[var(--color-border)] bg-transparent c-inherit cursor-pointer"
+          aria-label={t('close')}
+        >
+          <span class="i-mdi-close h-5 w-5" aria-hidden="true"></span>
+        </button>
+      </div>
+
+      <label class="sr-only" for="search-input">{t('Search')}</label>
+      <div class="flex items-center gap-3 border-b-2 border-primary pb-2">
+        <span class="i-mdi-magnify h-5 w-5 shrink-0 c-[var(--color-muted)]" aria-hidden="true"></span>
+        <input
+          id="search-input"
+          type="search"
+          class="min-w-0 flex-1 border-0 bg-transparent p-0 text-5 font-ui c-inherit outline-none"
+          placeholder={t('search_placeholder')}
+          autocomplete="off"
+          spellcheck="false"
+        />
+      </div>
+    </header>
+
+    <div class="min-h-0 flex-1 overflow-y-auto p-5">
+      <p id="search-status" class="m-0 min-h-6 text-3.5 c-[var(--color-muted)]" aria-live="polite">
+        {t('search_hint')}
+      </p>
+      <ol id="search-results" class="m-0 mt-3 list-none p-0"></ol>
+      <button
+        id="search-more"
+        type="button"
+        class="mt-4 hidden w-full border border-[var(--color-border)] bg-transparent px-4 py-2.5 font-bold font-ui c-inherit cursor-pointer"
+      >
+        {t('search_more')}
+      </button>
+    </div>
+  </div>
+</dialog>
+
+<script>
+  import type { PagefindApi, PagefindResultData, PagefindResultReference } from '~/types/pagefind'
+
+  const SEARCH_BOUND = Symbol.for('site-search-bound')
+  const searchWindow = window as unknown as Window & Record<symbol, boolean | undefined>
+
+  if (!searchWindow[SEARCH_BOUND]) {
+    searchWindow[SEARCH_BOUND] = true
+
+    const trigger = document.querySelector<HTMLButtonElement>('#search-trigger')
+    const dialog = document.querySelector<HTMLDialogElement>('#search-dialog')
+    const closeButton = document.querySelector<HTMLButtonElement>('#search-close')
+    const input = document.querySelector<HTMLInputElement>('#search-input')
+    const status = document.querySelector<HTMLElement>('#search-status')
+    const results = document.querySelector<HTMLOListElement>('#search-results')
+    const moreButton = document.querySelector<HTMLButtonElement>('#search-more')
+
+    let pagefindPromise: Promise<PagefindApi> | null = null
+    let resultReferences: PagefindResultReference[] = []
+    let visibleCount = 0
+    let debounceTimer = 0
+    let queryVersion = 0
+    const pageSize = 8
+
+    const strings = {
+      loading: dialog?.dataset.loading ?? '正在搜索…',
+      empty: dialog?.dataset.empty ?? '没有找到相关文章。',
+      error: dialog?.dataset.error ?? '搜索索引暂时不可用。',
+      count: dialog?.dataset.count ?? '找到 %d 篇文章',
+      hint: dialog?.dataset.hint ?? '输入关键词搜索文章。',
+    }
+
+    function loadPagefind() {
+      if (!pagefindPromise) {
+        const pagefindPath = '/pagefind/pagefind.js'
+        pagefindPromise = import(/* @vite-ignore */ pagefindPath).then((module) => module as unknown as PagefindApi)
+      }
+      return pagefindPromise
+    }
+
+    function resetSearch() {
+      queryVersion++
+      resultReferences = []
+      visibleCount = 0
+      if (input) {
+        input.value = ''
+      }
+      if (results) {
+        results.replaceChildren()
+      }
+      if (status) {
+        status.textContent = strings.hint
+      }
+      moreButton?.classList.add('hidden')
+    }
+
+    function openSearch() {
+      if (!dialog || !input) {
+        return
+      }
+      if (!dialog.open) {
+        dialog.showModal()
+      }
+      requestAnimationFrame(() => input.focus())
+    }
+
+    function closeSearch() {
+      if (!dialog?.open) {
+        return
+      }
+      dialog.close()
+      trigger?.focus()
+    }
+
+    function createResultItem(data: PagefindResultData) {
+      const item = document.createElement('li')
+      item.className = 'search-result border-t border-[var(--color-border)] py-4'
+
+      const link = document.createElement('a')
+      link.href = data.url
+      link.className = 'not-underline-hover block'
+
+      const meta = document.createElement('p')
+      meta.className = 'm-0 mb-1 text-3 c-[var(--color-muted)]'
+      meta.textContent = [data.meta.date, data.meta.category].filter(Boolean).join(' · ')
+
+      const title = document.createElement('h3')
+      title.className = 'm-0 break-words text-4.5 font-bold'
+      title.textContent = data.meta.title ?? data.url
+
+      const excerpt = document.createElement('p')
+      excerpt.className = 'm-0 mt-2 line-clamp-2 text-3.5 lh-6 c-[var(--color-muted)]'
+      const excerptTemplate = document.createElement('template')
+      excerptTemplate.innerHTML = data.excerpt
+      excerptTemplate.content.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) {
+          excerpt.append(node.textContent ?? '')
+          return
+        }
+        if (node instanceof HTMLElement && node.tagName === 'MARK') {
+          const mark = document.createElement('mark')
+          mark.textContent = node.textContent
+          excerpt.append(mark)
+          return
+        }
+        excerpt.append(node.textContent ?? '')
+      })
+
+      link.append(meta, title, excerpt)
+      link.addEventListener('click', () => {
+        closeSearch()
+        resetSearch()
+      })
+      item.append(link)
+      return item
+    }
+
+    async function appendResults(version: number) {
+      if (!results || !status) {
+        return
+      }
+      const nextCount = Math.min(visibleCount + pageSize, resultReferences.length)
+      const batch = resultReferences.slice(visibleCount, nextCount)
+      const data = await Promise.all(batch.map((result) => result.data()))
+      if (version !== queryVersion) {
+        return
+      }
+
+      const fragment = document.createDocumentFragment()
+      data.forEach((result) => fragment.append(createResultItem(result)))
+      results.append(fragment)
+      visibleCount = nextCount
+      moreButton?.classList.toggle('hidden', visibleCount >= resultReferences.length)
+    }
+
+    async function runSearch(query: string) {
+      if (!status || !results) {
+        return
+      }
+      const version = ++queryVersion
+      results.replaceChildren()
+      moreButton?.classList.add('hidden')
+      visibleCount = 0
+
+      if (!query.trim()) {
+        status.textContent = strings.hint
+        resultReferences = []
+        return
+      }
+
+      status.textContent = strings.loading
+
+      const response = await loadPagefind()
+        .then((pagefind) => pagefind.search(query.trim()))
+        .catch(() => null)
+
+      if (version !== queryVersion) {
+        return
+      }
+      if (!response) {
+        status.textContent = strings.error
+        pagefindPromise = null
+        return
+      }
+
+      resultReferences = response.results
+      if (resultReferences.length === 0) {
+        status.textContent = strings.empty
+        return
+      }
+
+      status.textContent = strings.count.replace('%d', String(resultReferences.length))
+      await appendResults(version)
+    }
+
+    trigger?.addEventListener('click', openSearch)
+    closeButton?.addEventListener('click', closeSearch)
+    moreButton?.addEventListener('click', () => appendResults(queryVersion))
+
+    input?.addEventListener('input', () => {
+      window.clearTimeout(debounceTimer)
+      debounceTimer = window.setTimeout(() => runSearch(input.value), 150)
+    })
+
+    dialog?.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        closeSearch()
+      }
+    })
+
+    window.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape' && dialog?.open) {
+        event.preventDefault()
+        closeSearch()
+        return
+      }
+
+      if ((event.metaKey || event.ctrlKey) && event.key.toLowerCase() === 'k') {
+        event.preventDefault()
+        openSearch()
+      }
+    })
+
+    document.addEventListener('swup:page:view', () => {
+      closeSearch()
+      resetSearch()
+    })
+  }
+</script>
+
+<style is:global>
+  .search-dialog::backdrop {
+    background: color-mix(in srgb, #000 58%, transparent);
+  }
+
+  .search-result mark {
+    color: var(--uno-colors-background);
+    background: var(--uno-colors-primary);
+    padding-inline: 0.12em;
+  }
+
+  a[aria-current='page'] {
+    text-decoration-thickness: 0.16em;
+    text-underline-offset: 0.32em;
+  }
+
+  @media (max-width: 640px) {
+    .search-dialog {
+      width: calc(100vw - 1rem);
+      max-height: calc(100dvh - 1rem);
+    }
+
+    .search-dialog > div {
+      min-height: calc(100dvh - 1rem);
+      max-height: calc(100dvh - 1rem);
+    }
+  }
+</style>

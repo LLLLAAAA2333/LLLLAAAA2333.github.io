@@ -2,20 +2,13 @@
 import { themeConfig } from '~/.config'
 import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
-import { getCategories, getPathFromCategory } from '~/utils/index'
+import PostSummaryItem from '~/components/PostSummaryItem.astro'
+import { formatDate, getCategories, getPathFromCategory, getPostSummary } from '~/utils/index'
 
 const { translate: t } = Astro.locals
 const categoryMap = await getCategories()
 
-const list = getListFromMap(categoryMap)
-
-function getListFromMap(map: typeof categoryMap) {
-  return Array.from(map).map(([key, value]) => ({
-    title: key,
-    href: `/categories/${getPathFromCategory(key, themeConfig.site.categoryMap)}`,
-    size: t('categories_count', value.length),
-  }))
-}
+const list = Array.from(categoryMap.entries()).sort(([, a], [, b]) => b.length - a.length)
 ---
 
 <LayoutDefault>
@@ -26,19 +19,42 @@ function getListFromMap(map: typeof categoryMap) {
     canonical="/categories/"
     type="website"
   />
-  <section>
-    <h2 class="post-title">{t('Categories')}</h2>
-    <ul class="pl-6" flex="~ col gap-4">
-      {
-        list.map(({ title, href, size }) => (
-          <li>
-            <h3 class="post-title">
-              <a href={href}># {title}</a>
-            </h3>
-            <p>{size}</p>
-          </li>
-        ))
-      }
-    </ul>
-  </section>
+  <header class="mb-8 flex items-baseline justify-between gap-4 border-b border-[var(--color-border)] pb-4">
+    <h1 class="m-0 text-7 font-bold font-ui">{t('Categories')}</h1>
+    <p class="m-0 shrink-0 text-3.5 c-[var(--color-muted)]">{list.length} 个分类</p>
+  </header>
+
+  {
+    list.length === 0 ? (
+      <p class="c-[var(--color-muted)]">尚无分类。</p>
+    ) : (
+      <div class="flex flex-col gap-14">
+        {list.map(([category, posts]) => {
+          const href = `/categories/${getPathFromCategory(category, themeConfig.site.categoryMap)}`
+          const latest = posts[0]?.data.modDate ?? posts[0]?.data.pubDate
+          return (
+            <section aria-labelledby={`category-${category}`}>
+              <header class="grid gap-3 border-l-2 border-[var(--color-border)] pl-4 sm:grid-cols-[minmax(0,1fr)_auto] sm:items-end">
+                <div>
+                  <h2 id={`category-${category}`} class="m-0 text-6 font-bold font-ui">
+                    <a href={href}># {category}</a>
+                  </h2>
+                  <p class="mb-0 mt-2 c-[var(--color-muted)]">{t('categories_count', posts.length)}</p>
+                </div>
+                {latest && <p class="m-0 text-3 c-[var(--color-muted)]">最近更新 {formatDate(latest)}</p>}
+              </header>
+              <div class="mt-3">
+                {posts.slice(0, 3).map((post) => (
+                  <PostSummaryItem post={getPostSummary(post, false)} compact headingLevel="h3" />
+                ))}
+              </div>
+              <a class="mt-3 inline-block font-bold" href={href}>
+                查看全部 →
+              </a>
+            </section>
+          )
+        })}
+      </div>
+    )
+  }
 </LayoutDefault>
