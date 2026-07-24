@@ -32,6 +32,19 @@ const twitter = configSEO.twitter
 const rss = new URL('/atom.xml', Astro.site).toString()
 const optimizedImage = await getOptimizedImageURL()
 const structuredData = buildStructuredData()
+const serializedStructuredData = structuredData
+  ? JSON.stringify(structuredData).replace(
+      /[<>&\u2028\u2029]/g,
+      (character) =>
+        ({
+          '<': '\\u003c',
+          '>': '\\u003e',
+          '&': '\\u0026',
+          '\u2028': '\\u2028',
+          '\u2029': '\\u2029',
+        })[character] ?? character,
+    )
+  : undefined
 const robotsExtras = 'max-snippet:-1, max-image-preview:large, max-video-preview:-1'
 const robotsContent = `index, follow, ${robotsExtras}`
 
@@ -50,11 +63,9 @@ const seoLinks = [
 const seoMeta = [
   { name: 'viewport', content: 'width=device-width' },
   { name: 'generator', content: Astro.generator },
-  ...(
-    configSEO.googleSiteVerification
-      ? [{ name: 'google-site-verification', content: configSEO.googleSiteVerification }]
-      : []
-  ),
+  ...(configSEO.googleSiteVerification
+    ? [{ name: 'google-site-verification', content: configSEO.googleSiteVerification }]
+    : []),
   { name: 'robots', content: robotsContent },
   { name: 'twitter:image:src', content: optimizedImage },
   { name: 'twitter:image:alt', content: desc },
@@ -77,17 +88,17 @@ const openGraph: SEOProps['openGraph'] = {
     description: desc,
     siteName: configSite.title,
   },
-  article: type === 'article'
-    ? {
-        publishedTime: publishedTime?.toISOString(),
-        modifiedTime: modifiedTime?.toISOString(),
-        authors: configSite.author ? [configSite.author] : undefined,
-        section,
-        tags,
-      }
-    : undefined,
+  article:
+    type === 'article'
+      ? {
+          publishedTime: publishedTime?.toISOString(),
+          modifiedTime: modifiedTime?.toISOString(),
+          authors: configSite.author ? [configSite.author] : undefined,
+          section,
+          tags,
+        }
+      : undefined,
 }
-
 
 function buildStructuredData() {
   if (type !== 'article') {
@@ -145,13 +156,7 @@ async function getOptimizedImageURL() {
 }
 ---
 
-{structuredData && (
-  <script
-    type="application/ld+json"
-    is:inline
-    set:html={JSON.stringify(structuredData)}
-  />
-)}
+{serializedStructuredData && <script type="application/ld+json" is:inline set:html={serializedStructuredData} />}
 
 <SEO
   charset="utf-8"

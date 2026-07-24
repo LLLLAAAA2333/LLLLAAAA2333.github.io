@@ -1,15 +1,18 @@
 ---
 import PostMeta from '~/components/PostMeta.astro'
 import type { Post } from '~/types'
+import 'lxgw-wenkai-webfont/lxgwwenkaimono-bold.css'
+import 'lxgw-wenkai-webfont/lxgwwenkaimono-regular.css'
 
 interface Props {
   post: Post
+  indexForSearch?: boolean
 }
 
-const { post } = Astro.props
+const { post, indexForSearch = false } = Astro.props
 ---
 
-<article class="prose">
+<article class="prose" data-pagefind-body={indexForSearch || undefined}>
   <PostMeta post={post} />
   <slot />
 </article>

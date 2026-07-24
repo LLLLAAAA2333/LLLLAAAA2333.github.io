@@ -15,19 +15,38 @@ const tagList = post.data.tags ?? []
 ---
 
 <header flex="~ col gap-2">
-  <h1 class="post-title">
+  <h1 class="post-title break-words" data-pagefind-meta="title">
     <a class="not-prose" href={getPostCanonicalPath(post)}>{post.data.title}</a>
   </h1>
   <div class="text-3.5 flex flex-wrap items-center gap-x-2">
     <span>{t(post.data.modDate ? 'updated_at' : 'posted_at')}</span>
-    <time>{formatDate(post.data.modDate ?? post.data.pubDate)}</time>
-    {categoryList.map((category) => <PostCategory category={category} />)}
+    <time datetime={(post.data.modDate ?? post.data.pubDate).toISOString()} data-pagefind-meta="date">
+      {formatDate(post.data.modDate ?? post.data.pubDate)}
+    </time>
+    {
+      categoryList.map((category, index) => (
+        <span data-pagefind-filter="category" data-pagefind-meta={index === 0 ? 'category' : undefined}>
+          <PostCategory category={category} />
+        </span>
+      ))
+    }
 
     {tagList.length > 0 && <span class="text-gray-400">•</span>}
-    {tagList.map((tag) => (
-      <a href={`/tags/${tag}`} class="text-sm">
-        #{tag}
-      </a>
-    ))}
-    </div>
+    {
+      tagList.map((tag) => (
+        <span data-pagefind-filter="tag">
+          <a href={`/tags/${tag}`} class="text-sm">
+            #{tag}
+          </a>
+        </span>
+      ))
+    }
+    {
+      tagList.length > 0 && (
+        <span class="sr-only" data-pagefind-meta="tags">
+          {tagList.join(', ')}
+        </span>
+      )
+    }
+  </div>
 </header>
