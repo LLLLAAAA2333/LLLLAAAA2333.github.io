@@ -83,10 +83,9 @@ interface Colors {
 
 interface Fonts {
   header: string
+  mono: string
   ui: string
-  // TODO: 未实现
   _article?: string
-  _code?: string
 }
 
 interface Twikoo {

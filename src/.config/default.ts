@@ -41,6 +41,7 @@ export const defaultConfig: ThemeConfig = {
     ],
     categoryMap: [{ name: '胡适', path: 'hu-shi' }],
     footer: [
+      // deslop-ignore-next-line 15
       '© %year <a target="_blank" href="https://llllaaaa2333.github.io/">LLLLAAAA</a>',
       'Theme <a target="_blank" href="https://github.com/Moeyua/astro-theme-typography">Typography</a> by <a target="_blank" href="https://moeyua.com">Moeyua</a>',
       'Proudly published with <a target="_blank" href="https://astro.build/">Astro</a>',
@@ -58,9 +59,9 @@ export const defaultConfig: ThemeConfig = {
       background: '#232222',
     },
     fonts: {
-      header:
-        '"HiraMinProN-W6","Source Han Serif CN","Source Han Serif SC","Source Han Serif TC",serif',
-      ui: '"Source Sans Pro","Roboto","Helvetica","Helvetica Neue","Source Han Sans SC","Source Han Sans TC","PingFang SC","PingFang HK","PingFang TC",sans-serif',
+      header: '"LXGW WenKai","霞鹜文楷",serif',
+      ui: '"LXGW WenKai","霞鹜文楷",serif',
+      mono: '"LXGW WenKai Mono","霞鹜文楷等宽",monospace',
     },
   },
   seo: {
