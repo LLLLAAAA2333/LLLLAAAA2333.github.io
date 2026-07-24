@@ -2,7 +2,6 @@
 import type { GetStaticPaths, InferGetStaticPropsType } from 'astro'
 import { Image } from 'astro:assets'
 import Comments from '~/components/Comments.astro'
-import ImageLightbox from '~/components/ImageLightbox.astro'
 import Pagination from '~/components/Pagination.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
@@ -67,7 +66,6 @@ function getUrl(id: string) {
   <LayoutPost post={entry} indexForSearch>
     <Content />
   </LayoutPost>
-  <ImageLightbox />
 
   <Pagination
     showLeft={Boolean(prev)}
