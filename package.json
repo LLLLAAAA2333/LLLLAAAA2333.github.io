@@ -9,7 +9,10 @@
   "repository": "https://github.com/moeyua/astro-theme-typography",
   "scripts": {
     "dev": "astro check && astro dev",
-    "build": "astro check && astro build && pagefind --site dist",
+    "build": "pnpm fonts:check && astro check && astro build && pagefind --site dist && node scripts/check-page-styles.mjs",
+    "fonts:check": "node scripts/check-font-corpus.mjs",
+    "fonts:download": "node scripts/download-font-sources.mjs",
+    "fonts:subset": "node scripts/subset-fonts.mjs",
     "preview": "astro preview",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
@@ -29,7 +32,6 @@
     "astro-robots-txt": "^1.0.0",
     "astro-seo": "^0.8.4",
     "giscus": "^1.6.0",
-    "lxgw-wenkai-webfont": "^1.7.0",
     "rehype-katex": "^7.0.1",
     "remark-math": "^6.0.0",
     "sharp": "^0.34.4"

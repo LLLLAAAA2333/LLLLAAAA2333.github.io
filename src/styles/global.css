@@ -27,6 +27,26 @@ html {
   font-family: theme('fontFamily.mono'); /* deslop-ignore 33 -- alignment is meaningful for code */
 }
 
+.code-container {
+  position: relative;
+}
+
+.clipboard-copy {
+  position: absolute;
+  top: 0.5rem;
+  right: 0.5rem;
+  width: 1.75rem;
+  height: 1.75rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 0.25rem;
+}
+
+.clipboard-copy:hover {
+  background-color: #30363d;
+}
+
 :where(a):not(.not-underline-hover) {
   --at-apply: 'p-1.5px';
   --at-apply: 'decoration-underline decoration-0.1em decoration-offset-2px';
