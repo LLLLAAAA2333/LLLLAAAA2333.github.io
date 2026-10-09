@@ -17,6 +17,7 @@
     "lint": "eslint .",
     "lint:fix": "eslint . --fix",
     "typecheck": "tsc --noEmit",
+    "test:audio": "node --import tsx --test tests/markdown-audio.test.ts",
     "theme:release": "tsx scripts/release-theme.ts",
     "theme:create": "tsx scripts/create-post.ts",
     "theme:update": "tsx scripts/update-theme.ts"

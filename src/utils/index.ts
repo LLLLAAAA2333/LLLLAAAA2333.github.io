@@ -3,6 +3,7 @@ import { getCollection } from 'astro:content'
 import dayjs from 'dayjs'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
+import { markdownItAudio } from './markdown-audio'
 
 export async function getCategories() {
   const posts = await getPosts()
@@ -57,7 +58,7 @@ export async function getPosts(isArchivePage = false) {
   return posts
 }
 
-const parser = new MarkdownIt()
+const parser = new MarkdownIt().use(markdownItAudio, { base: import.meta.env.BASE_URL })
 const descriptionCache = new WeakMap<Post, string>()
 const summaryMetadataCache = new WeakMap<Post, Omit<PostSummary, 'description'>>()
 
@@ -72,7 +73,7 @@ export function getPostDescription(post: Post) {
     return post.data.description
   }
 
-  const html = parser.render(post.body || '')
+  const html = parser.render(post.body || '', { filePath: post.filePath })
   const sanitized = sanitizeHtml(html, { allowedTags: [] })
   const description = sanitized.slice(0, 400)
   descriptionCache.set(post, description)

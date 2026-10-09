@@ -6,10 +6,11 @@ import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
 import { themeConfig } from '~/.config'
 import { getPosts } from '~/utils'
+import { audioUrlPrefix, markdownItAudio } from '~/utils/markdown-audio'
 
-const parser = new MarkdownIt()
+const parser = new MarkdownIt({ html: true }).use(markdownItAudio, { base: import.meta.env.BASE_URL })
 const { title, description, website, author } = themeConfig.site
-const allowedTags = sanitizeHtml.defaults.allowedTags.concat(['img'])
+const allowedTags = sanitizeHtml.defaults.allowedTags.concat(['img', 'audio'])
 
 // 扫描所有帖子文件夹下的图片
 const images = import.meta.glob<{ default: ImageMetadata }>('/src/content/posts/**/*.{jpeg,jpg,png,gif,webp,svg}', { eager: true })
@@ -58,7 +59,7 @@ async function getPostContent(post: Post) {
   if (!isFullText)
     return post.data.description
 
-  let html = parser.render(post.body || '')
+  let html = parser.render(post.body || '', { filePath: post.filePath })
 
   // 匹配图片标签并转换 URL
   // 支持 src="./image.png"
@@ -96,5 +97,22 @@ async function getPostContent(post: Post) {
     }
   }
 
-  return sanitizeHtml(html, { allowedTags })
+  return sanitizeHtml(html, {
+    allowedTags,
+    allowedAttributes: {
+      ...sanitizeHtml.defaults.allowedAttributes,
+      audio: ['src', 'controls', 'preload', 'aria-label'],
+    },
+    transformTags: {
+      '*': (tagName, attribs) => {
+        const urlAttribute = tagName === 'audio' ? 'src' : 'href'
+        const isAudioUrl = tagName === 'audio'
+          || (tagName === 'a' && attribs.href?.startsWith(audioUrlPrefix(import.meta.env.BASE_URL)))
+        if (isAudioUrl && attribs[urlAttribute]) {
+          attribs[urlAttribute] = new URL(attribs[urlAttribute], website).toString()
+        }
+        return { tagName, attribs }
+      },
+    },
+  })
 }

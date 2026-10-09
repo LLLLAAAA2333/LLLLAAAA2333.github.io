@@ -7,6 +7,7 @@ import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import UnoCSS from 'unocss/astro'
 import devtoolsJson from 'vite-plugin-devtools-json'
+import markdownAudio from './src/integrations/markdown-audio'
 
 // https://astro.build/config
 export default defineConfig({
@@ -33,6 +34,7 @@ export default defineConfig({
     },
   },
   integrations: [
+    markdownAudio(),
     UnoCSS({ injectReset: true }),
     mdx({}),
     robotsTxt({ host: true }),

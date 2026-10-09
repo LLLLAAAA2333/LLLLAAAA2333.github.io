@@ -47,6 +47,24 @@ html {
   background-color: #30363d;
 }
 
+.prose audio {
+  width: 16rem;
+  max-width: 100%;
+  margin-block: 0.5rem;
+}
+
+.prose td audio {
+  min-width: 16rem;
+}
+
+.prose table:has(audio) :is(th, td) {
+  min-width: 8rem;
+}
+
+.prose table:has(audio) :is(th, td):nth-child(3) {
+  min-width: 14rem;
+}
+
 :where(a):not(.not-underline-hover) {
   --at-apply: 'p-1.5px';
   --at-apply: 'decoration-underline decoration-0.1em decoration-offset-2px';
