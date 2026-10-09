@@ -6,6 +6,7 @@ import SiteSeo from '~/components/SiteSeo.astro'
 import LaTeX from '~/components/LaTeX.astro'
 import Analytics from '~/components/Analytics.astro'
 import ThemeScript from '~/components/ThemeScript.astro'
+import ImageLightbox from '~/components/ImageLightbox.astro'
 import '~/styles/fonts.css'
 import '~/styles/global.css'
 
@@ -47,6 +48,8 @@ const dark = themeConfig.appearance.theme === 'dark'
     <main class="transition-swup-main min-w-0 outline-none" lg="row-1-2 col-2-3 py-20">
       <slot />
     </main>
+
+    <ImageLightbox />
 
     <script>
       document.addEventListener('animationend', removeAnimation, false)

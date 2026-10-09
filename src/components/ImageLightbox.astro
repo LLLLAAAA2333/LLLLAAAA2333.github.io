@@ -1,0 +1,150 @@
+<dialog id="image-lightbox" aria-label="图片大图">
+  <button type="button" class="image-lightbox-close not-underline-hover" aria-label="关闭大图">
+    <span class="i-mdi-close h-6 w-6" aria-hidden="true"></span>
+  </button>
+  <img alt="" />
+</dialog>
+
+<script>
+  const LIGHTBOX_BOUND = Symbol.for('article-lightbox-bound')
+  const lightboxWindow = window as unknown as Window & Record<symbol, boolean | undefined>
+  const dialog = document.querySelector<HTMLDialogElement>('#image-lightbox')
+  const preview = dialog?.querySelector<HTMLImageElement>('img')
+  const closeButton = dialog?.querySelector<HTMLButtonElement>('button')
+
+  if (!lightboxWindow[LIGHTBOX_BOUND] && dialog && preview && closeButton) {
+    lightboxWindow[LIGHTBOX_BOUND] = true
+    let activeImage: HTMLImageElement | null = null
+    const imageSelector = 'main article.prose img.image-zoomable'
+
+    function prepareImages() {
+      document.querySelectorAll<HTMLImageElement>('main article.prose img').forEach((image) => {
+        if (image.closest('a, button')) {
+          return
+        }
+        image.classList.add('image-zoomable')
+        image.tabIndex = 0
+        image.setAttribute('role', 'button')
+        image.setAttribute('aria-haspopup', 'dialog')
+        image.setAttribute('aria-controls', 'image-lightbox')
+        image.setAttribute('aria-label', image.alt ? `查看大图：${image.alt}` : '查看图片大图')
+      })
+    }
+
+    function openLightbox(image: HTMLImageElement) {
+      if (!dialog || !preview || dialog.open || image.closest('a, button')) {
+        return
+      }
+      activeImage = image
+      preview.src = image.currentSrc || image.src
+      preview.alt = image.alt
+      dialog.showModal()
+    }
+
+    function closeLightbox(restoreFocus = true) {
+      if (!restoreFocus) {
+        activeImage = null
+      }
+      if (dialog?.open) {
+        dialog.close()
+      }
+    }
+
+    document.addEventListener('click', (event) => {
+      if (event.defaultPrevented) {
+        return
+      }
+      const image = event.target
+      if (image instanceof HTMLImageElement && image.matches(imageSelector)) {
+        openLightbox(image)
+      }
+    })
+
+    document.addEventListener('keydown', (event) => {
+      if (event.defaultPrevented || (event.key !== 'Enter' && event.key !== ' ')) {
+        return
+      }
+      const image = event.target
+      if (image instanceof HTMLImageElement && image.matches(imageSelector)) {
+        event.preventDefault()
+        openLightbox(image)
+      }
+    })
+
+    closeButton.addEventListener('click', () => closeLightbox())
+    dialog.addEventListener('click', (event) => {
+      if (event.target === dialog) {
+        closeLightbox()
+      }
+    })
+    dialog.addEventListener('close', () => {
+      if (dialog.open) {
+        return
+      }
+      preview.removeAttribute('src')
+      preview.alt = ''
+      if (activeImage?.isConnected) {
+        activeImage.focus({ preventScroll: true })
+      }
+      activeImage = null
+    })
+
+    document.addEventListener('astro:before-swap', () => closeLightbox(false))
+    document.addEventListener('astro:page-load', prepareImages)
+    prepareImages()
+  }
+</script>
+
+<style is:global>
+  html:has(#image-lightbox[open]) {
+    overflow: hidden;
+  }
+
+  #image-lightbox {
+    margin: auto;
+    padding: 0;
+    border: 0;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+    overflow: visible;
+    background: transparent;
+    color: white;
+  }
+
+  #image-lightbox::backdrop {
+    background: rgb(0 0 0 / 88%);
+  }
+
+  #image-lightbox > img {
+    display: block;
+    width: auto;
+    height: auto;
+    max-width: calc(100vw - 2rem);
+    max-height: calc(100dvh - 2rem);
+    object-fit: contain;
+  }
+
+  .image-lightbox-close {
+    position: absolute;
+    top: 0.5rem;
+    right: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75rem;
+    height: 2.75rem;
+    border: 1px solid rgb(255 255 255 / 40%);
+    background: rgb(0 0 0 / 80%);
+    color: white;
+    cursor: pointer;
+  }
+
+  .image-lightbox-close:focus-visible {
+    outline-color: white;
+    outline-offset: -4px;
+  }
+
+  main article.prose img.image-zoomable {
+    cursor: zoom-in;
+  }
+</style>
