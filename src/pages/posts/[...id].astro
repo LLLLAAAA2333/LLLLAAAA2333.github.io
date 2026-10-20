@@ -6,7 +6,7 @@ import Pagination from '~/components/Pagination.astro'
 import SiteSeo from '~/components/SiteSeo.astro'
 import LayoutDefault from '~/layouts/LayoutDefault.astro'
 import LayoutPost from '~/layouts/LayoutPost.astro'
-import { getPostCanonicalPath, getPosts } from '~/utils'
+import { getPostCanonicalPath, getPostDescription, getPosts } from '~/utils'
 import { render } from 'astro:content'
 
 export const getStaticPaths = (async () => {
@@ -15,7 +15,7 @@ export const getStaticPaths = (async () => {
     const prev = posts[idx + 1]
     const next = posts[idx - 1]
     return {
-      params: { id: post.id },
+      params: { id: post.data.slug ?? post.id },
       props: { entry: post, next, prev },
     }
   })
@@ -29,10 +29,6 @@ const { Content, headings } = await render(entry)
 const { translate: t } = Astro.locals
 
 import TableOfContents from '~/components/TableOfContents.astro'
-
-function getUrl(id: string) {
-  return `/posts/${id}`
-}
 ---
 
 <LayoutDefault hasToc={headings.some((heading) => heading.depth <= 3)}>
@@ -41,9 +37,9 @@ function getUrl(id: string) {
   <SiteSeo
     slot="seo"
     title={entry.data.title}
-    desc={entry.data.description}
+    desc={getPostDescription(entry)}
     banner={entry.data.banner}
-    canonical={`${getPostCanonicalPath(entry)}/`}
+    canonical={getPostCanonicalPath(entry)}
     publishedTime={entry.data.pubDate}
     modifiedTime={entry.data.modDate ?? entry.data.pubDate}
     type="article"
@@ -70,10 +66,10 @@ function getUrl(id: string) {
   <Pagination
     showLeft={Boolean(prev)}
     leftTitle={`${t('prev_post')}: ${prev?.data.title}`}
-    leftUrl={getUrl(prev?.id)}
+    leftUrl={prev && getPostCanonicalPath(prev)}
     showRight={Boolean(next)}
     rightTitle={`${t('next_post')}: ${next?.data.title}`}
-    rightUrl={getUrl(next?.id)}
+    rightUrl={next && getPostCanonicalPath(next)}
     showPageCount={false}
   />
   <!-- BUG 这里使用 client:visible 会导致构建失败。ref: https://github.com/withastro/astro/issues/7329 -->

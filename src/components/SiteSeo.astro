@@ -21,8 +21,8 @@ const configSEO = themeConfig.seo
 const configSite = themeConfig.site
 
 const title = props.title ?? configSite.title
-const desc = props.desc ?? configSite.description
-const canonical = new URL(props.canonical ?? Astro.url.pathname, configSite.website).toString()
+const desc = props.desc?.trim() || configSite.description.trim()
+const canonical = new URL(props.canonical ?? Astro.url.pathname, Astro.site ?? configSite.website).toString()
 const publishedTime = props.publishedTime
 const modifiedTime = props.modifiedTime
 const type = props.type ?? 'website'
@@ -50,7 +50,6 @@ const robotsContent = `index, follow, ${robotsExtras}`
 
 const seoLinks = [
   { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
-  { rel: 'canonical', href: canonical },
   {
     rel: 'alternate',
     type: 'application/rss+xml',

@@ -68,14 +68,15 @@ export function getPostDescription(post: Post) {
     return cached
   }
 
-  if (post.data.description) {
-    descriptionCache.set(post, post.data.description)
-    return post.data.description
+  const manualDescription = post.data.description?.trim()
+  if (manualDescription) {
+    descriptionCache.set(post, manualDescription)
+    return manualDescription
   }
 
   const html = parser.render(post.body || '', { filePath: post.filePath })
   const sanitized = sanitizeHtml(html, { allowedTags: [] })
-  const description = sanitized.slice(0, 400)
+  const description = parser.utils.unescapeAll(sanitized).replace(/\s+/g, ' ').trim().slice(0, 400)
   descriptionCache.set(post, description)
   return description
 }
@@ -114,5 +115,5 @@ export function getPathFromCategory(
 }
 
 export function getPostCanonicalPath(post: Post) {
-  return `/posts/${post.data.slug ?? post.id}`
+  return `/posts/${post.data.slug ?? post.id}/`
 }

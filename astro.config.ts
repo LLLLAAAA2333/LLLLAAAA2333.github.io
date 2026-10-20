@@ -7,11 +7,13 @@ import rehypeKatex from 'rehype-katex'
 import remarkMath from 'remark-math'
 import UnoCSS from 'unocss/astro'
 import devtoolsJson from 'vite-plugin-devtools-json'
+import { themeConfig } from './src/.config'
 import markdownAudio from './src/integrations/markdown-audio'
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://LLLLAAAA2333.github.io',
+  site: themeConfig.site.website,
+  trailingSlash: 'always',
   prefetch: true,
   // base: '/',
   vite: {

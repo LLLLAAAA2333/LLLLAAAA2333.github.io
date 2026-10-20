@@ -22,7 +22,7 @@ const displayDate = post.modDate ?? post.pubDate
       post.categories.map((category) => (
         <a
           class="not-underline-hover font-bold"
-          href={`/categories/${getPathFromCategory(category, themeConfig.site.categoryMap)}`}
+          href={`/categories/${getPathFromCategory(category, themeConfig.site.categoryMap)}/`}
         >
           {category}
         </a>
@@ -40,7 +40,7 @@ const displayDate = post.modDate ?? post.pubDate
     post.tags.length > 0 && (
       <div class="mt-3 flex flex-wrap gap-x-2 gap-y-1 text-3.25">
         {post.tags.map((tag) => (
-          <a href={`/tags/${tag}`}>#{tag}</a>
+          <a href={`/tags/${tag}/`}>#{tag}</a>
         ))}
       </div>
     )

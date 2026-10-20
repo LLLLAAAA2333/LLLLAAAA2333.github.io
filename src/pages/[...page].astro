@@ -43,7 +43,7 @@ const isFirstPage = page.currentPage === 1
       </h1>
       <div class="flex shrink-0 items-baseline gap-4 text-3.5">
         <span class="c-[var(--color-muted)]">{page.total} 篇文章</span>
-        {!isFirstPage && <a href="/archive">查看归档</a>}
+        {!isFirstPage && <a href="/archive/">查看归档</a>}
       </div>
     </header>
     {page.data.map((post) => <PostSummaryItem post={getPostSummary(post)} />)}

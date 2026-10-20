@@ -29,7 +29,7 @@ const maxCount = Math.max(...sortedTags.map(([, posts]) => posts.length), 1)
               <li>
                 <a
                   class="not-underline-hover grid grid-cols-[minmax(0,1fr)_auto] items-center gap-3 py-2"
-                  href={`/tags/${tag}`}
+                  href={`/tags/${tag}/`}
                   aria-label={`${tag}，${posts.length} 篇文章`}
                 >
                   <span>

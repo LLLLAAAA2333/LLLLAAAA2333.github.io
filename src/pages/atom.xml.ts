@@ -5,7 +5,7 @@ import { getImage } from 'astro:assets'
 import MarkdownIt from 'markdown-it'
 import sanitizeHtml from 'sanitize-html'
 import { themeConfig } from '~/.config'
-import { getPosts } from '~/utils'
+import { getPostCanonicalPath, getPostDescription, getPosts } from '~/utils'
 import { audioUrlPrefix, markdownItAudio } from '~/utils/markdown-audio'
 
 const parser = new MarkdownIt({ html: true }).use(markdownItAudio, { base: import.meta.env.BASE_URL })
@@ -38,12 +38,12 @@ function getCustomData() {
 
 async function getPostItem(post: Post) {
   const postItem = {
-    link: `/posts/${post.id}/`,
+    link: getPostCanonicalPath(post),
     author: post.data.author ?? author,
     content: await getPostContent(post),
     title: post.data.title,
     pubDate: post.data.pubDate,
-    description: post.data.description,
+    description: getPostDescription(post),
     customData: post.data.customData,
     categories: post.data.categories,
     commentsUrl: post.data.commentsUrl,
@@ -57,7 +57,7 @@ async function getPostItem(post: Post) {
 async function getPostContent(post: Post) {
   const isFullText = themeConfig.rss.fullText
   if (!isFullText)
-    return post.data.description
+    return getPostDescription(post)
 
   let html = parser.render(post.body || '', { filePath: post.filePath })
 
