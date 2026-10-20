@@ -10,7 +10,7 @@ interface Props {
 const { post, indexForSearch = false } = Astro.props
 ---
 
-<article class="prose" data-pagefind-body={indexForSearch || undefined}>
+<article class="prose post-content" data-pagefind-body={indexForSearch || undefined}>
   <PostMeta post={post} />
   <slot />
 </article>

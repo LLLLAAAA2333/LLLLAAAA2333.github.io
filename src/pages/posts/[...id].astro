@@ -12,8 +12,8 @@ import { render } from 'astro:content'
 export const getStaticPaths = (async () => {
   const posts = await getPosts()
   return posts.map((post, idx) => {
-    const prev = posts[idx - 1]
-    const next = posts[idx + 1]
+    const prev = posts[idx + 1]
+    const next = posts[idx - 1]
     return {
       params: { id: post.id },
       props: { entry: post, next, prev },
@@ -35,7 +35,7 @@ function getUrl(id: string) {
 }
 ---
 
-<LayoutDefault>
+<LayoutDefault hasToc={headings.some((heading) => heading.depth <= 3)}>
   <TableOfContents slot="toc" headings={headings} />
 
   <SiteSeo
@@ -86,14 +86,14 @@ function getUrl(id: string) {
   document.addEventListener('clipboard-copy', (event) => {
     const target = event.target as HTMLElement
     const icon = target.querySelector('.icon') as HTMLElement
-    icon.classList.replace('i-mdi-content-copy', 'i-mdi-check')
+    icon.classList.replace('i-tabler-copy', 'i-tabler-check')
     setTimeout(() => {
-      icon.classList.replace('i-mdi-check', 'i-mdi-content-copy')
+      icon.classList.replace('i-tabler-check', 'i-tabler-copy')
     }, 1500)
   })
 
   const codeBlocks = Array.from(document.querySelectorAll('pre'))
-  const icon = "<div class='i-mdi-content-copy icon text-white'></div>"
+  const icon = "<div class='i-tabler-copy icon text-white'></div>"
   for (const codeBlock of codeBlocks) {
     const wrapper = document.createElement('div')
     wrapper.className = 'code-container'

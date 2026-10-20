@@ -1,0 +1,211 @@
+---
+import type { Post } from '~/types'
+import { Image } from 'astro:assets'
+import { themeConfig } from '~/.config'
+import { formatDate, getPathFromCategory, getPostSummary } from '~/utils'
+import { getPostCover } from '~/utils/post-cover'
+
+interface Props {
+  category: string
+  posts: Post[]
+}
+
+const { category, posts } = Astro.props
+const { translate: t } = Astro.locals
+const path = getPathFromCategory(category, themeConfig.site.categoryMap)
+const latest = posts[0]
+const date = latest?.data.modDate ?? latest?.data.pubDate
+const summary = latest && getPostSummary(latest)
+const cover = latest && (await getPostCover(latest))
+const displayName = category.replaceAll('_', ' ').replace(/\b\w/g, (letter) => letter.toUpperCase())
+const headingId = `category-${path}`
+---
+
+<article class="category-card">
+  {
+    cover &&
+      (typeof cover === 'string' ? (
+        <img class="category-card-image" src={cover} alt="" width="800" height="600" loading="lazy" decoding="async" />
+      ) : (
+        <Image
+          class="category-card-image"
+          src={cover}
+          alt=""
+          width={800}
+          height={600}
+          fit="cover"
+          format="webp"
+          quality={65}
+          loading="lazy"
+        />
+      ))
+  }
+  <div class="category-card-content">
+    <header class="category-card-heading">
+      <h2 id={headingId}>
+        <a class="category-card-link not-underline-hover" href={`/categories/${path}`}>{displayName}</a>
+      </h2>
+      <span class="category-card-count">{t('categories_count', posts.length)}</span>
+    </header>
+    {summary?.description && <p class="category-card-description">{summary.description}</p>}
+    {
+      latest && date && (
+        <div class="category-card-latest">
+          <div class="min-w-0">
+            <p class="category-card-date">
+              最近更新 <time datetime={date.toISOString()}>{formatDate(date)}</time>
+            </p>
+            <p class="category-card-post">{latest.data.title}</p>
+          </div>
+          <span class="category-card-arrow" aria-hidden="true">
+            <span class="i-tabler-arrow-right h-5 w-5" />
+          </span>
+        </div>
+      )
+    }
+  </div>
+</article>
+
+<style>
+  .category-card {
+    --card-muted: color-mix(in srgb, var(--uno-colors-primary) 82%, var(--uno-colors-background));
+
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+    isolation: isolate;
+    border: 1px solid var(--color-border);
+    border-radius: 0.25rem;
+    color: inherit;
+    background: color-mix(in srgb, var(--uno-colors-background) 65%, transparent);
+    cursor: pointer;
+    transition: border-color 180ms ease;
+  }
+
+  .category-card :global(.category-card-image) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .category-card-content {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 1rem;
+    min-height: 18rem;
+    padding: 1.5rem;
+  }
+
+  .category-card-heading {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.25rem 0.75rem;
+  }
+
+  .category-card-heading h2 {
+    min-width: 0;
+    margin: 0;
+    font-size: clamp(1.5rem, 2.5vw, 2rem);
+    font-weight: 700;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+  }
+
+  .category-card-count {
+    flex-shrink: 0;
+    color: var(--card-muted);
+    font-size: 0.875rem;
+  }
+
+  .category-card-link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .category-card-link::after {
+    position: absolute;
+    inset: 0;
+    content: '';
+  }
+
+  .category-card-link:focus-visible {
+    outline: none;
+  }
+
+  .category-card:has(.category-card-link:focus-visible) {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  .category-card-description {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    color: var(--card-muted);
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .category-card-latest {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .category-card-date {
+    margin: 0 0 0.5rem;
+    color: var(--card-muted);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .category-card-date time {
+    margin-left: 0.375rem;
+  }
+
+  .category-card-post {
+    display: -webkit-box;
+    overflow: hidden;
+    margin: 0;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.5;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 2;
+  }
+
+  .category-card-arrow {
+    display: flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 1.75rem;
+    height: 1.75rem;
+    transition: transform 180ms ease;
+  }
+
+  .category-card:hover,
+  .category-card:focus-within {
+    border-color: var(--uno-colors-primary);
+  }
+
+  .category-card:hover .category-card-arrow {
+    transform: translateX(0.25rem);
+  }
+</style>

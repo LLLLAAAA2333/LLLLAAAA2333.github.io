@@ -1,21 +1,20 @@
 ---
 import { themeConfig } from '~/.config'
 
-const { title, subtitle } = themeConfig.site
+const { subtitle } = themeConfig.site
 ---
 
 <hgroup
   lg="write-vertical-right items-start b-l-2px b-l-primary text-left"
-  flex="~ col gap-2.5"
+  flex="~ col gap-2"
   class="cursor-pointer text-center duration-800 ease-in-out"
 >
   <a
     class="not-underline-hover duration-800 ease-in-out"
-    lg:p="x-2.5 b-12 hover:(t-3.75 b-8.75)"
+    lg:p="x-2.5 b-5 hover:(t-1.5 b-3.5)"
     hover:lg=" bg-primary color-background"
     href="/"
   >
-    <h3 class="text-5 font-extrabold font-header">{subtitle}</h3>
-    <p class="m-0 text-8 font-extrabold font-header">{title}</p>
+    <h3 class="text-5 font-extrabold font-header lg:text-3.5">{subtitle}</h3>
   </a>
 </hgroup>

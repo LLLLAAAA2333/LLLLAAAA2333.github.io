@@ -1,50 +1,40 @@
 ---
 import { themeConfig } from '~/.config'
 import SearchDialog from '~/components/SearchDialog.astro'
-import SiteFooter from '~/components/SiteFooter.astro'
 import ThemeToggle from '~/components/ThemeToggle.astro'
+import { isNavLinkActive } from '~/utils/navigation'
 
-const { navLinks, socialLinks, author, description } = themeConfig.site
+const { navLinks, socialLinks, author } = themeConfig.site
 const { translate: t } = Astro.locals
+
+const navigationIcons: Record<string, string> = {
+  Posts: 'i-tabler-file-text',
+  Archive: 'i-tabler-archive',
+  Categories: 'i-tabler-category',
+  Tags: 'i-tabler-tags',
+  About: 'i-tabler-user-circle',
+}
 ---
 
-<div class="mb-7 w-full border-b border-[var(--color-border)] pb-6 text-center font-ui">
-  <!-- deslop-ignore-next-line 19 -->
-  <img src="/hornet.png" alt={author || '站点头像'} class="mx-auto mb-3 h-24 w-24 rounded-full shadow-lg" />
-  {author && <h2 class="m-0 text-xl font-bold">{author}</h2>}
-  {description && <p class="mb-0 mt-2 text-sm">{description}</p>}
-  <footer class="mt-3" aria-label="站点版权信息">
-    <SiteFooter />
-  </footer>
-</div>
-<nav class="text-center font-bold font-ui" flex="~ col gap-4">
-  <ul lg="flex-col items-start text-4" class="text-3.5" flex="~ row gap-2 justify-center">
-    {
-      navLinks.map((nav) => (
-        <li>
-          <a
-            href={nav.href}
-            aria-current={
-              Astro.url.pathname === nav.href || (nav.href !== '/' && Astro.url.pathname.startsWith(nav.href))
-                ? 'page'
-                : undefined
-            }
-          >
-            {t(nav.name)}
-          </a>
-        </li>
-      ))
-    }
-    <li>
-      <SearchDialog />
-    </li>
-  </ul>
-  <ul flex="~ row gap-1 justify-center items-center">
+<div class="site-profile font-ui">
+  <img src="/hornet.png" alt={author || '站点头像'} width="80" height="80" class="site-avatar" />
+  {author && <h2 class="m-0 mt-2 text-4 font-bold">{author}</h2>}
+  <ul class="site-tools" aria-label="社交链接与外观设置">
     {
       socialLinks.map(({ href, name }) => (
         <li>
-          <a href={href} target="_blank" title={name} class="not-underline-hover inline-flex items-center">
-            <span class:list={[`i-mdi-${name}`, 'w-6 h-6']}>{name}</span>
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            title={name === 'github' ? 'GitHub' : name === 'rss' ? 'RSS 订阅' : name}
+            aria-label={name === 'github' ? 'GitHub' : name === 'rss' ? 'RSS 订阅' : name}
+            class="site-tool not-underline-hover"
+          >
+            <span
+              class:list={[name === 'github' ? 'i-tabler-brand-github' : `i-tabler-${name}`, 'site-icon']}
+              aria-hidden="true"
+            />
           </a>
         </li>
       ))
@@ -53,4 +43,42 @@ const { translate: t } = Astro.locals
       <ThemeToggle />
     </li>
   </ul>
+</div>
+<nav class="site-menu font-ui" aria-label="主导航">
+  <ul class="site-menu-list">
+    {
+      navLinks.map((nav) => (
+        <li>
+          <a
+            href={nav.href}
+            class="site-menu-link not-underline-hover"
+            aria-current={isNavLinkActive(nav.href, Astro.url.pathname) ? 'page' : undefined}
+          >
+            <span class:list={[navigationIcons[nav.name] ?? 'i-tabler-link', 'site-icon']} aria-hidden="true" />
+            <span>{t(nav.name)}</span>
+          </a>
+        </li>
+      ))
+    }
+    <li>
+      <SearchDialog />
+    </li>
+  </ul>
 </nav>
+
+<script>
+  import { isNavLinkActive } from '~/utils/navigation'
+
+  function updateCurrentLink() {
+    document.querySelectorAll<HTMLAnchorElement>('.site-menu-link[href]').forEach((link) => {
+      if (!isNavLinkActive(new URL(link.href).pathname, window.location.pathname)) {
+        link.removeAttribute('aria-current')
+        return
+      }
+      link.setAttribute('aria-current', 'page')
+    })
+  }
+
+  updateCurrentLink()
+  document.addEventListener('swup:page:view', updateCurrentLink)
+</script>

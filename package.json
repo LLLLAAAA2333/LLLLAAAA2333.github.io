@@ -39,7 +39,7 @@
   },
   "devDependencies": {
     "@antfu/eslint-config": "^4.17.0",
-    "@iconify-json/mdi": "^1.2.3",
+    "@iconify-json/tabler": "^1.2.42",
     "@types/markdown-it": "^14.1.2",
     "@types/node": "^22.16.4",
     "@types/sanitize-html": "^2.16.0",

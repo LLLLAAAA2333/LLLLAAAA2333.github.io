@@ -27,6 +27,222 @@ html {
   font-family: theme('fontFamily.mono'); /* deslop-ignore 33 -- alignment is meaningful for code */
 }
 
+.site-layout {
+  --reading-width: 42rem;
+  --content-width: 52rem;
+  --site-width: 1440px;
+  --toc-width: 11rem;
+  --navigation-width: 14rem;
+  --table-image-width: 10rem;
+
+  width: 100%;
+  max-width: var(--site-width);
+  padding: 1.5rem;
+}
+
+.site-toc {
+  display: none;
+}
+
+.site-navigation {
+  gap: 1rem;
+  margin-block: 0.375rem 2.5rem;
+}
+
+.site-profile {
+  width: 100%;
+  text-align: center;
+}
+
+.site-avatar {
+  display: block;
+  width: 5rem;
+  height: 5rem;
+  margin-inline: auto;
+  border: 1px solid var(--color-border);
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.site-tools {
+  display: flex;
+  justify-content: center;
+  gap: 0.25rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-tool {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: inherit;
+  background: transparent;
+  cursor: pointer;
+}
+
+.site-navigation .site-icon {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.site-menu {
+  width: 100%;
+  max-width: 20rem;
+  margin-inline: auto;
+  padding-top: 0.75rem;
+  border-top: 1px solid var(--color-border);
+}
+
+.site-menu-list {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.site-menu-link {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  width: 100%;
+  min-height: 2.5rem;
+  padding: 0.375rem;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  color: inherit;
+  background: transparent;
+  font: inherit;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.5;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.site-menu-link[aria-current='page'] {
+  border-color: var(--color-border);
+  background: var(--color-surface);
+}
+
+.site-tool:hover,
+.site-menu-link:hover {
+  background: var(--color-surface);
+}
+
+.site-tool,
+.site-menu-link {
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease;
+}
+
+.site-main {
+  width: 100%;
+  max-width: var(--content-width);
+  margin-inline: auto;
+}
+
+.site-main:has(.post-content) {
+  max-width: 64rem;
+}
+
+article.post-content {
+  width: 100%;
+  max-width: none;
+}
+
+.post-content > :is(header, p, ul, ol, dl, blockquote, h1, h2, h3, h4, h5, h6, hr) {
+  max-width: var(--reading-width);
+  margin-inline: auto;
+}
+
+.post-content > p:has(.katex-display) {
+  max-width: none;
+}
+
+.post-content table {
+  width: 100%;
+}
+
+article.post-content table td:has(img) {
+  min-width: calc(var(--table-image-width) + 2em);
+}
+
+.post-content table img {
+  width: var(--table-image-width);
+  max-width: 100%;
+  height: auto;
+}
+
+@media (min-width: 64rem) {
+  .site-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) var(--navigation-width);
+    column-gap: 2rem;
+    align-items: start;
+    padding: 0 2rem;
+  }
+
+  .site-main {
+    grid-row: 1;
+    grid-column: 1;
+    padding-block: 5rem;
+  }
+
+  .site-navigation {
+    position: sticky;
+    top: 5rem;
+    grid-row: 1;
+    grid-column: 2;
+    align-items: start;
+    justify-content: flex-start;
+    max-height: calc(100dvh - 6rem);
+    margin: 5rem 0 1rem;
+    overflow-y: auto;
+  }
+
+  .site-menu-list {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 80rem) {
+  .site-layout--with-toc {
+    grid-template-columns: var(--toc-width) minmax(0, 1fr) var(--navigation-width);
+  }
+
+  .site-layout--with-toc .site-toc {
+    position: sticky;
+    top: 0;
+    display: block;
+    grid-row: 1;
+    grid-column: 1;
+    max-height: 100vh;
+    padding-block: 5rem;
+    overflow-y: auto;
+  }
+
+  .site-layout--with-toc .site-main {
+    grid-column: 2;
+  }
+
+  .site-layout--with-toc .site-navigation {
+    grid-column: 3;
+  }
+}
+
 .code-container {
   position: relative;
 }

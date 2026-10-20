@@ -5,17 +5,13 @@ const { translate: t } = Astro.locals
 <button
   id="search-trigger"
   type="button"
-  class="not-underline-hover inline-flex items-center gap-1 border-0 bg-transparent p-0 font-bold font-ui c-inherit cursor-pointer"
+  class="site-menu-link not-underline-hover"
+  title={`${t('Search')} (Ctrl / ⌘ K)`}
   aria-haspopup="dialog"
   aria-controls="search-dialog"
 >
-  <span class="i-mdi-magnify h-4.5 w-4.5" aria-hidden="true"></span>
+  <span class="i-tabler-search site-icon" aria-hidden="true"></span>
   <span>{t('Search')}</span>
-  <kbd
-    class="hidden border border-[var(--color-border)] px-1.5 py-0.5 text-2.5 font-normal c-[var(--color-muted)] xl:inline"
-  >
-    ⌘K
-  </kbd>
 </button>
 
 <dialog
@@ -45,13 +41,13 @@ const { translate: t } = Astro.locals
           class="not-underline-hover inline-flex h-9 w-9 items-center justify-center border border-[var(--color-border)] bg-transparent c-inherit cursor-pointer"
           aria-label={t('close')}
         >
-          <span class="i-mdi-close h-5 w-5" aria-hidden="true"></span>
+          <span class="i-tabler-x h-5 w-5" aria-hidden="true"></span>
         </button>
       </div>
 
       <label class="sr-only" for="search-input">{t('Search')}</label>
       <div class="flex items-center gap-3 border-b-2 border-primary pb-2">
-        <span class="i-mdi-magnify h-5 w-5 shrink-0 c-[var(--color-muted)]" aria-hidden="true"></span>
+        <span class="i-tabler-search h-5 w-5 shrink-0 c-[var(--color-muted)]" aria-hidden="true"></span>
         <input
           id="search-input"
           type="search"

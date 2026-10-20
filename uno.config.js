@@ -76,12 +76,8 @@ export default defineConfig({
   ],
   transformers: [transformerDirectives(), transformerVariantGroup()],
   safelist: [
-    ...themeConfig.site.socialLinks.map(social => `i-mdi-${social.name}`),
-    'i-mdi-content-copy',
-    'i-mdi-check',
-    'i-mdi-weather-night',
-    'i-mdi-weather-sunny',
-    'i-mdi-magnify',
-    'i-mdi-close',
+    ...themeConfig.site.socialLinks.map(({ name }) => name === 'github' ? 'i-tabler-brand-github' : `i-tabler-${name}`),
+    'i-tabler-copy',
+    'i-tabler-check',
   ],
 })

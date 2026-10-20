@@ -10,6 +10,11 @@ import ImageLightbox from '~/components/ImageLightbox.astro'
 import '~/styles/fonts.css'
 import '~/styles/global.css'
 
+interface Props {
+  hasToc?: boolean
+}
+
+const { hasToc = false } = Astro.props
 const lang = themeConfig.appearance.locale ?? 'en-us'
 const dark = themeConfig.appearance.theme === 'dark'
 ---
@@ -22,30 +27,17 @@ const dark = themeConfig.appearance.theme === 'dark'
     <ThemeScript />
   </head>
 
-  <body
-    class="min-h-100vh max-w-[1440px] min-w-390px mx-a"
-    p="7.5 lg:(y-0 x-8)"
-    lg="grid gap-x-6 cols-[16rem_minmax(0,1fr)_18rem] items-start"
-  >
-    <aside
-      id="toc-container"
-      class="hidden lg:block transition-swup-header"
-      lg="row-1-2 col-1-2 py-20 sticky top-0 max-h-100vh overflow-y-auto"
-    >
+  <body class:list={['site-layout min-h-100vh mx-a', { 'site-layout--with-toc': hasToc }]}>
+    <aside id="toc-container" aria-label="文章目录" class="site-toc transition-swup-header">
       <slot name="toc" />
     </aside>
 
-    <aside
-      aria-label="站点导航"
-      class="transition-swup-header flex flex-col gap-2.5"
-      m="7.5 lg:(x-0 t-20 b-4)"
-      lg="row-1-2 col-3-4 sticky top-0 max-h-100vh overflow-y-auto scrollbar-hide justify-between items-start"
-    >
+    <aside aria-label="站点导航" class="site-navigation transition-swup-header flex flex-col scrollbar-hide">
       <SiteTitle />
       <SiteNavigation />
     </aside>
 
-    <main class="transition-swup-main min-w-0 outline-none" lg="row-1-2 col-2-3 py-20">
+    <main class="site-main transition-swup-main min-w-0 outline-none">
       <slot />
     </main>
 
